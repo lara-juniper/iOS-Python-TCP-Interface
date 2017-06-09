@@ -1,5 +1,9 @@
 from twisted.internet.protocol import Factory, Protocol
 from twisted.internet import reactor
+import subprocess
+import os
+
+startVar = "Start"
 
 class IphoneChat(Protocol):
     def connectionMade(self):
@@ -11,6 +15,9 @@ class IphoneChat(Protocol):
 
     def dataReceived(self, data):
         print "Received message: " + data
+	if (data==startVar):
+		subprocess.call(['sudo', 'vagrant', 'up'])
+		print("success!!!")
 
     def message(self, message):
         message = "Hello, iPhone!"
