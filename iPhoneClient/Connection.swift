@@ -10,12 +10,12 @@ import Foundation
 
 class Connection: NSObject, StreamDelegate {
     
-    let serverAddress: CFString = "127.0.0.1" as CFString
-    let serverPort: UInt32 = 80
+    let serverAddress: CFString = "127.0.0.1" as CFString //server address of computer you're connecting to. Must be on same network as iPad
+    let serverPort: UInt32 = 80 //port to which you are connecting on the server computer
     
-    var inputStream: InputStream!
-    var outputStream: OutputStream!
-    var buffer = [UInt8](repeating: 0, count: 1024)
+    var inputStream: InputStream! //read-only stream data object
+    var outputStream: OutputStream! //write-only stream data object
+    var inputBuffer = [UInt8](repeating: 0, count: 1024) //create empty buffer where you store input message
     
     func connect() {
         print("connecting...")
@@ -23,66 +23,80 @@ class Connection: NSObject, StreamDelegate {
         var readStream:  Unmanaged<CFReadStream>?
         var writeStream: Unmanaged<CFWriteStream>?
         
+        //Pair iPad app with TCP Server
         CFStreamCreatePairWithSocketToHost(nil, self.serverAddress, self.serverPort, &readStream, &writeStream)
-        
-        // Documentation suggests readStream and writeStream can be assumed to
-        // be non-nil. If you believe otherwise, you can test if either is nil
-        // and implement whatever error-handling you wish.
         
         self.inputStream = readStream!.takeRetainedValue()
         self.outputStream = writeStream!.takeRetainedValue()
         
+        //designate the Connection class as the delegate for input/output streams
         self.inputStream.delegate = self
         self.outputStream.delegate = self
         
+        //Continuously process inputs and outputs using a new thread
         self.inputStream.schedule(in: RunLoop.current, forMode: RunLoopMode.defaultRunLoopMode)
         self.outputStream.schedule(in: RunLoop.current, forMode: RunLoopMode.defaultRunLoopMode)
         
-        self.inputStream.open()
-        self.outputStream.open()
+        self.inputStream.open() //open input socket
+        self.outputStream.open() //open output socket
     }
     
+    
+    //Stream delegate (i.e. connection object) runs this funciton every time something happens to the stream
     func stream(_ stream: Stream, handle eventCode: Stream.Event) {
         print("stream event")
         
         if stream === inputStream {
             
-            print("input")
+            print("stream type: input")
             
             switch eventCode {
                 
             case Stream.Event.openCompleted:
                 print("input: openCompleted")
-                break
                 
             case Stream.Event.hasBytesAvailable:
                 print("input: HasBytesAvailable")
                 
-                
-                inputStream.read(&buffer, maxLength: buffer.count)
                 while inputStream.hasBytesAvailable {
-                    _ = inputStream.read(&buffer, maxLength: buffer.count)
-                    let str = String(bytes: buffer, encoding: String.Encoding.utf8)
-                    print(str ?? "oops")
+                    var bytesInBuffer: Int = 0
+                    bytesInBuffer = inputStream.read(&inputBuffer, maxLength: inputBuffer.count)
+                    let str = String(bytes: inputBuffer, encoding: String.Encoding.utf8)
+                    if let sentString = str {
+                        print ("\(bytesInBuffer) bytes sent from Python server")
+                        print ("\nPython says: \(sentString)\n")
+                    }
                     
                 }
+          
+            case Stream.Event.errorOccurred:
+                print("input: Error occured")
+                
+            case Stream.Event.endEncountered:
+                print("input: End encountered")
+                
+            case Stream.Event.hasSpaceAvailable:
+                print("input: Has Space Available")
                 
             default:
-                print("default")
+                print("input: default")
             }
         }
         
         if stream == outputStream {
             
-            print("output")
+            print("stream type: output")
             
             switch eventCode {
                 
-            case Stream.Event.hasBytesAvailable:
-                print("output: HasBytesAvailable")
+            case Stream.Event.hasSpaceAvailable:
+                print("output: HasSpaceAvailable")
+                
+            case Stream.Event.errorOccurred:
+                print("output: Error occured")
                 
             default:
-                print("default")
+                print("output: default")
                 
             }
             
