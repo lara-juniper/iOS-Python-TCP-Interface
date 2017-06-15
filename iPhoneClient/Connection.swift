@@ -17,6 +17,8 @@ class Connection: NSObject, StreamDelegate {
     var outputStream: OutputStream! //write-only stream data object
     var inputBuffer = [UInt8](repeating: 0, count: 1024) //create empty buffer where you store input message
     
+    var sendDelegate: dataDelegate? = nil
+    
     func connect() {
         print("connecting...")
         
@@ -65,6 +67,10 @@ class Connection: NSObject, StreamDelegate {
                     if let sentString = str {
                         print ("\(bytesInBuffer) bytes sent from Python server")
                         print ("\nPython says: \(sentString)\n")
+                        if let del = sendDelegate {
+                            del.send(str: sentString)
+                    
+                        }
                     }
                     
                 }
@@ -105,4 +111,8 @@ class Connection: NSObject, StreamDelegate {
         
     }
     
+}
+
+protocol dataDelegate {
+    func send(str: String)
 }

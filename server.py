@@ -9,7 +9,7 @@ class IphoneChat(Protocol):
     def connectionMade(self):
         self.factory.clients.append(self) #add connected device to client list
         print "clients are ", self.factory.clients #print client list
-        self.transport.write("Hello!")
+
 
     def connectionLost(self, reason):
         self.factory.clients.remove(self) #remove client from list when it disconnects
@@ -17,8 +17,9 @@ class IphoneChat(Protocol):
     def dataReceived(self, data): #function runs when new data is received from client
         print "Received message: " + data
 	if (data==startVar):
-	    #subprocess.call(['sudo', 'vagrant', 'up'])
-		print("successfully started virtual machines")
+	       #subprocess.call(['sudo', 'vagrant', 'up'])
+           self.transport.write("Hello!")
+           #print("successfully started virtual machines")
 
     def message(self, message):
         self.transport.write(message + '\n')

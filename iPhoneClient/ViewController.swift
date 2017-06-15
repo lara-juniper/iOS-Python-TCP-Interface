@@ -9,19 +9,25 @@
 import UIKit
 import Foundation
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, dataDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         connection.connect() //connect socket
         let str: String = "Start" //this is the message that will be sent to the Python server at the button press
         arrayToServer = Array(str.utf8) //convert string to utf8
+        connection.sendDelegate = self
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        // Dispose of any resources that canvar recreated.
     }
+    
+    //MARK: Objects
+    
+    @IBOutlet weak var leafSwitch1: SwitchImage!
+    
     
     //MARK: Variables
     
@@ -31,6 +37,12 @@ class ViewController: UIViewController {
     
     
     //MARK: Functions
+    
+    func send(str: String) {
+        //if str == "Hello!" {
+            leafSwitch1.status = .Enabled
+       // }
+    }
     
 
     //MARK: Actions
