@@ -10,13 +10,6 @@ import UIKit
 
 class SwitchImage: UIImageView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
     
    var status: switchStatus = switchStatus.Neutral {
         didSet {
@@ -24,13 +17,16 @@ class SwitchImage: UIImageView {
                 switch status {
                     
                 case .Neutral:
-                    self.backgroundColor = UIColor.white
+                    //self.backgroundColor = UIColor.white
+                    self.image = #imageLiteral(resourceName: "leafSwitchPNG")
                     
                 case .Disabled:
-                    self.backgroundColor = UIColor.red
+                    //self.backgroundColor = UIColor.red
+                    self.image = #imageLiteral(resourceName: "leafSwitchPNGRed")
                     
                 case .Enabled:
-                    self.backgroundColor = UIColor.green
+                   // self.backgroundColor = UIColor.green
+                    self.image = #imageLiteral(resourceName: "leafSwitchPNGGreen")
                     
                 }
             }

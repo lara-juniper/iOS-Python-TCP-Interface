@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="NP3-Z3-Tvm">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,6 +10,48 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Configuration View Controller-->
+        <scene sceneID="jXW-wL-fdU">
+            <objects>
+                <viewController id="NP3-Z3-Tvm" customClass="ConfigurationViewController" customModule="iPhoneClient" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zfg-k8-p88"/>
+                        <viewControllerLayoutGuide type="bottom" id="Gq2-oc-Kgv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Xog-1P-obW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p3A-hx-xnc">
+                                <rect key="frame" x="153" y="318" width="68" height="30"/>
+                                <state key="normal" title="Configure"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="sFw-6E-4N0"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="JuniperLogo" translatesAutoresizingMaskIntoConstraints="NO" id="Z0C-K8-D7v">
+                                <rect key="frame" x="0.0" y="582" width="160" height="85"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="85" id="UsT-9Y-AcQ"/>
+                                    <constraint firstAttribute="width" constant="160" id="XJE-hj-6g3"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.8505154667" green="0.92952282559999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Z0C-K8-D7v" firstAttribute="leading" secondItem="Xog-1P-obW" secondAttribute="leading" id="0Nk-Rs-oQg"/>
+                            <constraint firstItem="Z0C-K8-D7v" firstAttribute="leading" secondItem="Xog-1P-obW" secondAttribute="leading" id="0xu-ws-XBm"/>
+                            <constraint firstItem="Gq2-oc-Kgv" firstAttribute="top" secondItem="Z0C-K8-D7v" secondAttribute="bottom" id="8SN-qO-kfg"/>
+                            <constraint firstItem="Gq2-oc-Kgv" firstAttribute="top" secondItem="Z0C-K8-D7v" secondAttribute="bottom" id="94y-vb-cbH"/>
+                            <constraint firstItem="p3A-hx-xnc" firstAttribute="centerY" secondItem="Xog-1P-obW" secondAttribute="centerY" id="XDA-N7-Cme"/>
+                            <constraint firstItem="p3A-hx-xnc" firstAttribute="centerX" secondItem="Xog-1P-obW" secondAttribute="centerX" id="kPT-cd-ldL"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Soj-Ii-FIy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-822" y="37"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -44,7 +86,7 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.85051546671329603" green="0.92952282562142841" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="gvm-pU-oUq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="9jH-gY-nzd"/>
                             <constraint firstItem="aEm-JB-KWW" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9kq-KP-hSK"/>
@@ -65,6 +107,6 @@
     </scenes>
     <resources>
         <image name="JuniperLogo" width="2000" height="606"/>
-        <image name="leafSwitchPNG" width="640" height="320"/>
+        <image name="leafSwitchPNG" width="613" height="320"/>
     </resources>
 </document>

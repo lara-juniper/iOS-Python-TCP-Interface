@@ -39,9 +39,9 @@ class ViewController: UIViewController, dataDelegate {
     //MARK: Functions
     
     func send(str: String) {
-        //if str == "Hello!" {
+        if str == "Hello!" {
             leafSwitch1.status = .Enabled
-       // }
+        }
     }
     
 
