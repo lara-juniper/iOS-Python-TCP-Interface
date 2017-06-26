@@ -22,13 +22,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p3A-hx-xnc">
-                                <rect key="frame" x="153" y="318" width="68" height="30"/>
-                                <state key="normal" title="Configure"/>
-                                <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="sFw-6E-4N0"/>
-                                </connections>
-                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="JuniperLogo" translatesAutoresizingMaskIntoConstraints="NO" id="Z0C-K8-D7v">
                                 <rect key="frame" x="0.0" y="582" width="160" height="85"/>
                                 <constraints>
@@ -36,21 +29,57 @@
                                     <constraint firstAttribute="width" constant="160" id="XJE-hj-6g3"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p3A-hx-xnc">
+                                <rect key="frame" x="153" y="476" width="68" height="30"/>
+                                <state key="normal" title="Configure"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="sFw-6E-4N0"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZCA-9X-7F1">
+                                <rect key="frame" x="67" y="129" width="240" height="300"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="ClZ-WW-P5c"/>
+                                    <constraint firstAttribute="height" constant="300" id="MXc-eP-Bt9"/>
+                                </constraints>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="qm2-Qr-wh5" customClass="ConfigurationTableViewCell" customModule="iPhoneClient" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="240" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qm2-Qr-wh5" id="7e9-GA-4E6">
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tU6-nr-LNj">
+                                                    <rect key="frame" x="86" y="0.0" width="154" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                </pickerView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.8505154667" green="0.92952282559999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.85098039215686272" green="0.92941176470588238" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Z0C-K8-D7v" firstAttribute="leading" secondItem="Xog-1P-obW" secondAttribute="leading" id="0Nk-Rs-oQg"/>
                             <constraint firstItem="Z0C-K8-D7v" firstAttribute="leading" secondItem="Xog-1P-obW" secondAttribute="leading" id="0xu-ws-XBm"/>
                             <constraint firstItem="Gq2-oc-Kgv" firstAttribute="top" secondItem="Z0C-K8-D7v" secondAttribute="bottom" id="8SN-qO-kfg"/>
                             <constraint firstItem="Gq2-oc-Kgv" firstAttribute="top" secondItem="Z0C-K8-D7v" secondAttribute="bottom" id="94y-vb-cbH"/>
-                            <constraint firstItem="p3A-hx-xnc" firstAttribute="centerY" secondItem="Xog-1P-obW" secondAttribute="centerY" id="XDA-N7-Cme"/>
-                            <constraint firstItem="p3A-hx-xnc" firstAttribute="centerX" secondItem="Xog-1P-obW" secondAttribute="centerX" id="kPT-cd-ldL"/>
+                            <constraint firstItem="p3A-hx-xnc" firstAttribute="centerX" secondItem="Xog-1P-obW" secondAttribute="centerX" id="ZUg-kt-LZm"/>
+                            <constraint firstItem="ZCA-9X-7F1" firstAttribute="centerX" secondItem="Xog-1P-obW" secondAttribute="centerX" id="c2R-qo-GLp"/>
+                            <constraint firstItem="Z0C-K8-D7v" firstAttribute="top" secondItem="p3A-hx-xnc" secondAttribute="bottom" constant="76" id="hIi-gO-wSf"/>
+                            <constraint firstItem="p3A-hx-xnc" firstAttribute="top" secondItem="ZCA-9X-7F1" secondAttribute="bottom" constant="47" id="ikJ-th-wsh"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="ZCA-9X-7F1" id="KEG-im-Hj6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Soj-Ii-FIy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-822" y="37"/>
+            <point key="canvasLocation" x="-823.20000000000005" y="36.431784107946029"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -86,7 +115,7 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.85051546671329603" green="0.92952282562142841" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.85098039219999999" green="0.92952282559999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="gvm-pU-oUq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="9jH-gY-nzd"/>
                             <constraint firstItem="aEm-JB-KWW" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9kq-KP-hSK"/>
