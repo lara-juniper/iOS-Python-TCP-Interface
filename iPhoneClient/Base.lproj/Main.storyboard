@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -30,7 +29,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p3A-hx-xnc">
-                                <rect key="frame" x="153" y="476" width="68" height="30"/>
+                                <rect key="frame" x="153" y="542" width="68" height="30"/>
                                 <state key="normal" title="Configure"/>
                                 <connections>
                                     <segue destination="BYZ-38-t0r" kind="show" id="sFw-6E-4N0"/>
@@ -63,7 +62,7 @@
                             <constraint firstItem="QNY-zg-RBK" firstAttribute="top" secondItem="zfg-k8-p88" secondAttribute="bottom" constant="111" id="Jhv-67-uB2"/>
                             <constraint firstAttribute="trailing" secondItem="QNY-zg-RBK" secondAttribute="trailing" constant="20" id="KEo-tW-m2M"/>
                             <constraint firstItem="p3A-hx-xnc" firstAttribute="centerX" secondItem="Xog-1P-obW" secondAttribute="centerX" id="ZUg-kt-LZm"/>
-                            <constraint firstItem="Z0C-K8-D7v" firstAttribute="top" secondItem="p3A-hx-xnc" secondAttribute="bottom" constant="76" id="hIi-gO-wSf"/>
+                            <constraint firstItem="Z0C-K8-D7v" firstAttribute="top" secondItem="p3A-hx-xnc" secondAttribute="bottom" constant="10" id="hIi-gO-wSf"/>
                             <constraint firstItem="QNY-zg-RBK" firstAttribute="leading" secondItem="Xog-1P-obW" secondAttribute="leading" constant="20" id="kjk-nv-a9y"/>
                         </constraints>
                     </view>
@@ -88,7 +87,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aEm-JB-KWW">
-                                <rect key="frame" x="143" y="318" width="89" height="30"/>
+                                <rect key="frame" x="143" y="502" width="89" height="30"/>
                                 <state key="normal" title="Enable eBGP"/>
                                 <connections>
                                     <action selector="sendMessage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hsv-Lp-CFk"/>
@@ -101,27 +100,15 @@
                                     <constraint firstAttribute="width" constant="160" id="78o-xw-w65"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leafSwitchPNG" translatesAutoresizingMaskIntoConstraints="NO" id="h09-81-yNL" customClass="SwitchImage" customModule="iPhoneClient" customModuleProvider="target">
-                                <rect key="frame" x="67" y="182" width="240" height="128"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="128" id="wCu-e4-z5V"/>
-                                    <constraint firstAttribute="width" constant="240" id="wOK-Iv-xAA"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.85098039219999999" green="0.92952282559999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="gvm-pU-oUq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="9jH-gY-nzd"/>
                             <constraint firstItem="aEm-JB-KWW" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9kq-KP-hSK"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="gvm-pU-oUq" secondAttribute="bottom" id="L8H-bL-xFU"/>
-                            <constraint firstItem="aEm-JB-KWW" firstAttribute="top" secondItem="h09-81-yNL" secondAttribute="bottom" constant="8" id="csp-x8-jdK"/>
-                            <constraint firstItem="h09-81-yNL" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="51" id="igU-bC-V1B"/>
-                            <constraint firstItem="aEm-JB-KWW" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="rCC-Y0-byt"/>
+                            <constraint firstItem="gvm-pU-oUq" firstAttribute="top" secondItem="aEm-JB-KWW" secondAttribute="bottom" constant="50" id="acu-ys-Yzg"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="leafSwitch1" destination="h09-81-yNL" id="IE8-V1-YaP"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -130,6 +117,5 @@
     </scenes>
     <resources>
         <image name="JuniperLogo" width="2000" height="606"/>
-        <image name="leafSwitchPNG" width="613" height="320"/>
     </resources>
 </document>

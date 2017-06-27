@@ -5,6 +5,8 @@
 //  Created by Lara Orlandic on 6/23/17.
 //  Copyright © 2017 Lara Orlandic. All rights reserved.
 //
+
+//Global variables indicating the selected number of spines and leaves
 var numberOfSpines: Int = 0
 var numberOfLeaves: Int = 0
 
@@ -20,9 +22,7 @@ class ConfigurationViewController: UIViewController, UIPickerViewDataSource, UIP
 
     
     //MARK: Variables
-    let tableHeaders: [String] = ["Select Number of Spines", "Select Number of Leaves"]
-    let spineNumbers: [Int] = Array(1...5)
-    let delegate: SendConfig? = nil
+    let spineNumbers: [Int] = Array(0...5) //number of spines/leaves available
 
     
     //MARK: Main app functions
@@ -41,36 +41,35 @@ class ConfigurationViewController: UIViewController, UIPickerViewDataSource, UIP
     
     //MARK: Picker View Data Source and delegate functions
     
+    //Number of sub-pickers in picker. Selected two: one for leaves, one for spines
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 2
     }
     
+    //Select number of options in the picker
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
             return spineNumbers.count
     }
     
+    //Establish data in pickers
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
             return String(spineNumbers[row])
     }
-
+    
+    //Function executes when numbers are selected
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch component {
         case 0:
-            numberOfSpines = row + 1
+            numberOfSpines = row
             print("You selected \(numberOfSpines) spines.")
         case 1:
-            numberOfLeaves = row + 1
+            numberOfLeaves = row 
             print("You selected \(numberOfLeaves) leaves.")
         default:
             break
         }
     }
     
-}
-
-protocol SendConfig {
-    func sendSpineNumber(n: Int)
-    func sendLeafNumber(n: Int)
 }
 
 

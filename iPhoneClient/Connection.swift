@@ -17,7 +17,7 @@ class Connection: NSObject, StreamDelegate {
     var outputStream: OutputStream! //write-only stream data object
     var inputBuffer = [UInt8](repeating: 0, count: 6) //create empty buffer where you store input message
     
-    var sendDelegate: dataDelegate? = nil
+    var sendDelegate: dataDelegate? = nil //assign this to viewcontroller to which data will be sent
     
     func connect() {
         print("connecting...")
