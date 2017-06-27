@@ -15,6 +15,7 @@ class ViewController: UIViewController, dataDelegate {
         super.viewDidLoad()
         connection.connect() //connect socket
         connection.sendDelegate = self //lets the connection send data to the view controller
+        print("You created \(spineImages.count) spine images and \(leafImages.count) leaf images")
         
         generateSpineImages(spines: numberOfSpines)
         generateLeafImages(leaves: numberOfLeaves)
@@ -28,6 +29,8 @@ class ViewController: UIViewController, dataDelegate {
     //MARK: Objects
     
     //@IBOutlet weak var leafSwitch1: SwitchImage!
+    var spineImages: [SwitchImage] = []
+    var leafImages: [SwitchImage] = []
     
     
     //MARK: Variables and Constants
@@ -41,7 +44,12 @@ class ViewController: UIViewController, dataDelegate {
     //Function that is called by connection object whenever the socket receives data from Python to iPad
     func send(str: String) {
         if str == "Hello!" {
-            //leafSwitch1.status = .Enabled
+            for var leaf in leafImages {
+                leaf.status = .Enabled
+            }
+            for var spine in spineImages {
+                spine.status = .Enabled
+            }
         }
     }
     
@@ -68,6 +76,7 @@ class ViewController: UIViewController, dataDelegate {
             let image = UIImage(named: imageName)
             let imageView = SwitchImage(image: image!)
             imageView.tag = i
+            spineImages.append(imageView)
             
             let sections = (numberOfSpines*2 + 1)*2
             let sectionWidth = Int(Double(screenWidth)/Double(sections))
@@ -93,6 +102,7 @@ class ViewController: UIViewController, dataDelegate {
             let image = UIImage(named: imageName)
             let imageView = SwitchImage(image: image!)
             imageView.tag = numberOfSpines + i
+            leafImages.append(imageView)
             
             let sections = (numberOfLeaves*2 + 1)*2
             let sectionWidth = Int(Double(screenWidth)/Double(sections))
@@ -114,10 +124,10 @@ class ViewController: UIViewController, dataDelegate {
         
         print("Button pressed")
         sendMessageToPython(str: "Start")
-        sleep(1)
-        sendMessageToPython(str: "Spines: \(numberOfSpines)")
-        sleep(1)
-        sendMessageToPython(str: "Leaves: \(numberOfLeaves)")
+//        sleep(1)
+//        sendMessageToPython(str: "Spines: \(numberOfSpines)")
+//        sleep(1)
+//        sendMessageToPython(str: "Leaves: \(numberOfLeaves)")
         
     }
 
