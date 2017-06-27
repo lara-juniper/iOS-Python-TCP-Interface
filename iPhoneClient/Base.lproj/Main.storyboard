@@ -36,30 +36,23 @@
                                     <segue destination="BYZ-38-t0r" kind="show" id="sFw-6E-4N0"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZCA-9X-7F1">
-                                <rect key="frame" x="67" y="129" width="240" height="300"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="QNY-zg-RBK">
+                                <rect key="frame" x="20" y="131" width="335" height="216.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Number of Spines and Leaves" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U6T-ff-f62">
+                                        <rect key="frame" x="0.0" y="98" width="280.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <pickerView contentMode="scaleToFill" horizontalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="BSj-9c-1qt">
+                                        <rect key="frame" x="280.5" y="0.5" width="54.5" height="216"/>
+                                    </pickerView>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="ClZ-WW-P5c"/>
-                                    <constraint firstAttribute="height" constant="300" id="MXc-eP-Bt9"/>
+                                    <constraint firstAttribute="height" constant="216.5" id="dSa-bc-SVQ"/>
                                 </constraints>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="qm2-Qr-wh5" customClass="ConfigurationTableViewCell" customModule="iPhoneClient" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="240" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qm2-Qr-wh5" id="7e9-GA-4E6">
-                                            <rect key="frame" x="0.0" y="0.0" width="240" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tU6-nr-LNj">
-                                                    <rect key="frame" x="86" y="0.0" width="154" height="44"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                                </pickerView>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.85098039215686272" green="0.92941176470588238" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -67,14 +60,15 @@
                             <constraint firstItem="Z0C-K8-D7v" firstAttribute="leading" secondItem="Xog-1P-obW" secondAttribute="leading" id="0xu-ws-XBm"/>
                             <constraint firstItem="Gq2-oc-Kgv" firstAttribute="top" secondItem="Z0C-K8-D7v" secondAttribute="bottom" id="8SN-qO-kfg"/>
                             <constraint firstItem="Gq2-oc-Kgv" firstAttribute="top" secondItem="Z0C-K8-D7v" secondAttribute="bottom" id="94y-vb-cbH"/>
+                            <constraint firstItem="QNY-zg-RBK" firstAttribute="top" secondItem="zfg-k8-p88" secondAttribute="bottom" constant="111" id="Jhv-67-uB2"/>
+                            <constraint firstAttribute="trailing" secondItem="QNY-zg-RBK" secondAttribute="trailing" constant="20" id="KEo-tW-m2M"/>
                             <constraint firstItem="p3A-hx-xnc" firstAttribute="centerX" secondItem="Xog-1P-obW" secondAttribute="centerX" id="ZUg-kt-LZm"/>
-                            <constraint firstItem="ZCA-9X-7F1" firstAttribute="centerX" secondItem="Xog-1P-obW" secondAttribute="centerX" id="c2R-qo-GLp"/>
                             <constraint firstItem="Z0C-K8-D7v" firstAttribute="top" secondItem="p3A-hx-xnc" secondAttribute="bottom" constant="76" id="hIi-gO-wSf"/>
-                            <constraint firstItem="p3A-hx-xnc" firstAttribute="top" secondItem="ZCA-9X-7F1" secondAttribute="bottom" constant="47" id="ikJ-th-wsh"/>
+                            <constraint firstItem="QNY-zg-RBK" firstAttribute="leading" secondItem="Xog-1P-obW" secondAttribute="leading" constant="20" id="kjk-nv-a9y"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="tableView" destination="ZCA-9X-7F1" id="KEG-im-Hj6"/>
+                        <outlet property="spinePicker" destination="BSj-9c-1qt" id="uMp-cS-ony"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Soj-Ii-FIy" userLabel="First Responder" sceneMemberID="firstResponder"/>

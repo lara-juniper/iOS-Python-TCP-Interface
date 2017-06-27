@@ -14,9 +14,10 @@ class ViewController: UIViewController, dataDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         connection.connect() //connect socket
-        let str: String = "Start" //this is the message that will be sent to the Python server at the button press
-        arrayToServer = Array(str.utf8) //convert string to utf8
+        //let str: String = "Start" //this is the message that will be sent to the Python server at the button press
+        //arrayToServer = Array(str.utf8) //convert string to utf8
         connection.sendDelegate = self
+        //sendMessageToPython(str: "Start")
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,8 +33,6 @@ class ViewController: UIViewController, dataDelegate {
     //MARK: Variables
     
     let connection = Connection() //set up instance of iPad-Python server connection object
-    var arrayToServer: [UInt8] = [] //initialize array to be sent to server
-
     
     
     //MARK: Functions
@@ -44,6 +43,17 @@ class ViewController: UIViewController, dataDelegate {
         }
     }
     
+    func sendMessageToPython(str: String) {
+        var arrayToServer: [UInt8] = [] //initialize array to be sent to server
+        arrayToServer = Array(str.utf8)
+        if connection.outputStream.hasSpaceAvailable { //If there is space available on the output stream (i.e. you're not sending too much data at once)
+            let bytes = connection.outputStream.write(&arrayToServer, maxLength: arrayToServer.count) //write message to output stream
+            print("\(bytes) bytes were sent to Python") //print how many bytes of data were sent
+        } else { //error if you're trying to send too much data
+            print("Error: no space available for writing")
+        }
+    }
+    
 
     //MARK: Actions
     
@@ -51,12 +61,11 @@ class ViewController: UIViewController, dataDelegate {
     @IBAction func sendMessage(_ sender: UIButton) {
         
         print("Button pressed")
-        if connection.outputStream.hasSpaceAvailable { //If there is space available on the output stream (i.e. you're not sending too much data at once)
-            let bytes = connection.outputStream.write(&arrayToServer, maxLength: arrayToServer.count) //write message to output stream
-            print("\(bytes) bytes were sent to Python") //print how many bytes of data were sent
-        } else { //error if you're trying to send too much data
-            print("Error: no space available for writing")
-        }
+        sendMessageToPython(str: "Start")
+        sleep(1)
+        sendMessageToPython(str: "Spines: \(numberOfSpines)")
+        sleep(1)
+        sendMessageToPython(str: "Leaves: \(numberOfLeaves)")
         
     }
 

@@ -19,5 +19,68 @@
             landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iPhoneClient/ConfigurationViewController.swift"
+            timestampString = "520276379.728999"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "ConfigurationViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "iPhoneClient.ConfigurationViewController.tableHeaders.getter : Swift.Array&lt;Swift.String&gt;"
+                  moduleName = "iPhoneClient"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/larao/Documents/iPhoneTCPApp/iPhoneClient/ConfigurationViewController.swift"
+                  timestampString = "520212400.411601"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "35">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "iPhoneClient.ConfigurationViewController.init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; iPhoneClient.ConfigurationViewController"
+                  moduleName = "iPhoneClient"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/larao/Documents/iPhoneTCPApp/iPhoneClient/ConfigurationViewController.swift"
+                  timestampString = "520212400.414677"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "232">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "iPhoneClient.ConfigurationViewController.init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;iPhoneClient.ConfigurationViewController&gt;"
+                  moduleName = "iPhoneClient"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/larao/Documents/iPhoneTCPApp/iPhoneClient/ConfigurationViewController.swift"
+                  timestampString = "520212400.416381"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "156">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
