@@ -1,0 +1,16 @@
+
+host:
+    loopback:
+        ip: {{ loopback }}
+
+underlay:
+    local:
+         asn: {{ asn }}
+    neighbors:
+      {% for inter in underlay %}
+      - interface: {{ inter.name }}
+        asn: {{ inter.p_asn }}
+        peer_ip: {{ inter.peer_ip }}
+        local_ip: {{ inter.local_ip }}
+        vlan_id: {{ inter.id }}
+      {% endfor %}

@@ -1,0 +1,24 @@
+
+host:
+    loopback:
+        ip: 1.1.1.4
+
+underlay:
+    local:
+         asn: 5004
+    neighbors:
+      - interface: em3.100
+        asn: 5001
+        peer_ip: 10.10.1.1
+        local_ip: 10.10.1.2
+        vlan_id: 100
+      - interface: em3.200
+        asn: 5002
+        peer_ip: 10.10.3.1
+        local_ip: 10.10.3.2
+        vlan_id: 200
+      - interface: em3.300
+        asn: 5003
+        peer_ip: 10.10.5.1
+        local_ip: 10.10.5.2
+        vlan_id: 300
