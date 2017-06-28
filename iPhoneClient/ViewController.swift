@@ -25,6 +25,12 @@ class ViewController: UIViewController, dataDelegate, Rotation {
         }
         
         print("You created \(spineImages.count) spine images and \(leafImages.count) leaf images")
+        
+        drawLines()
+        
+        view.insertSubview(enableEBGPButton, aboveSubview: spineImages[spineImages.count - 1])
+        view.insertSubview(backButton, aboveSubview: enableEBGPButton)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,7 +44,11 @@ class ViewController: UIViewController, dataDelegate, Rotation {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var spineImages: [SwitchImage] = []
     var leafImages: [SwitchImage] = []
+    var lines: [LineView] = []
     
+    @IBOutlet weak var enableEBGPButton: UIButton!
+
+    @IBOutlet weak var backButton: UIButton!
     
     //MARK: Variables and Constants
     
@@ -48,13 +58,24 @@ class ViewController: UIViewController, dataDelegate, Rotation {
     
     //MARK: Functions
     
+    func drawLines() {
+        for spine in spineImages {
+            for leaf in leafImages {
+                let line = LineView(frame: view.frame)
+                line.setEndpoints(start: spine.center, end: leaf.center)
+                view.insertSubview(line, belowSubview: spine)
+                lines.append(line)
+            }
+        }
+    }
+    
     //Function that is called by connection object whenever the socket receives data from Python to iPad
     func send(str: String) {
         if str == "Hello!" {
-            for var leaf in leafImages {
+            for leaf in leafImages {
                 leaf.status = .Enabled
             }
-            for var spine in spineImages {
+            for spine in spineImages {
                 spine.status = .Enabled
             }
         }
@@ -73,7 +94,7 @@ class ViewController: UIViewController, dataDelegate, Rotation {
     }
     
     func generateSpineImages(spines: Int){
-        for var i: Int in 1...numberOfSpines {
+        for i in 1...numberOfSpines {
             
             let screenSize: CGRect = UIScreen.main.bounds
             let screenWidth = screenSize.width
@@ -90,7 +111,7 @@ class ViewController: UIViewController, dataDelegate, Rotation {
             let imageWidth = sectionWidth*3
             
             let imageXPos = Int(Double(1 + 4*(i-1))*Double(sectionWidth))
-            imageView.frame = CGRect(x: imageXPos, y: Int(Double(screenHeight)/3), width: imageWidth, height: Int(Double(imageWidth)*imageHeightToWidthRatio))
+            imageView.frame = CGRect(x: imageXPos, y: Int(Double(screenHeight)/3) - 50, width: imageWidth, height: Int(Double(imageWidth)*imageHeightToWidthRatio))
             view.addSubview(imageView)
             
             
@@ -99,7 +120,7 @@ class ViewController: UIViewController, dataDelegate, Rotation {
     
     func generateLeafImages(leaves: Int) {
         
-        for var i: Int in 1...numberOfLeaves {
+        for i in 1...numberOfLeaves {
             
             let screenSize: CGRect = UIScreen.main.bounds
             let screenWidth = screenSize.width
@@ -116,7 +137,7 @@ class ViewController: UIViewController, dataDelegate, Rotation {
             let imageWidth = sectionWidth*3
             
             let imageXPos = Int(Double(1 + 4*(i-1))*Double(sectionWidth))
-            imageView.frame = CGRect(x: imageXPos, y: Int(2*Double(screenHeight)/3), width: imageWidth, height: Int(Double(imageWidth)*imageHeightToWidthRatio))
+            imageView.frame = CGRect(x: imageXPos, y: Int(2*Double(screenHeight)/3) - 50, width: imageWidth, height: Int(Double(imageWidth)*imageHeightToWidthRatio))
             view.addSubview(imageView)
             
             
@@ -126,7 +147,7 @@ class ViewController: UIViewController, dataDelegate, Rotation {
     
     func resizeSpineWhenRotate(){
         var counter: Int = 0
-        for var spine in spineImages {
+        for spine in spineImages {
             counter = counter + 1
             let screenSize: CGRect = UIScreen.main.bounds
             let screenWidth = screenSize.width
@@ -137,14 +158,14 @@ class ViewController: UIViewController, dataDelegate, Rotation {
             let imageWidth = sectionWidth*3
             
             let imageXPos = Int(Double(1 + 4*(counter-1))*Double(sectionWidth))
-            spine.frame = CGRect(x: imageXPos, y: Int(Double(screenHeight)/3), width: imageWidth, height: Int(Double(imageWidth)*imageHeightToWidthRatio))
+            spine.frame = CGRect(x: imageXPos, y: Int(Double(screenHeight)/3) - 50, width: imageWidth, height: Int(Double(imageWidth)*imageHeightToWidthRatio))
             
         }
     }
     
     func resizeLeafWhenRotate(){
         var counter: Int = 0
-        for var leaf in leafImages {
+        for leaf in leafImages {
             counter = counter + 1
             let screenSize: CGRect = UIScreen.main.bounds
             let screenWidth = screenSize.width
@@ -155,10 +176,15 @@ class ViewController: UIViewController, dataDelegate, Rotation {
             let imageWidth = sectionWidth*3
             
             let imageXPos = Int(Double(1 + 4*(counter-1))*Double(sectionWidth))
-            leaf.frame = CGRect(x: imageXPos, y: Int(2*Double(screenHeight)/3), width: imageWidth, height: Int(Double(imageWidth)*imageHeightToWidthRatio))
+            leaf.frame = CGRect(x: imageXPos, y: Int(2*Double(screenHeight)/3) - 50, width: imageWidth, height: Int(Double(imageWidth)*imageHeightToWidthRatio))
         }
-        
-        
+    }
+    
+    func redrawLinesWhenRotate() {
+        for line in lines {
+            line.removeFromSuperview()
+        }
+        drawLines()
     }
 
 

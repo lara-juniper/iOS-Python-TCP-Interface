@@ -89,11 +89,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iPhoneClient/ConfigurationViewController.swift"
-            timestampString = "520293510.094145"
+            timestampString = "520378735.061748"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>

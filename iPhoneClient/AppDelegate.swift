@@ -49,12 +49,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // print("Landscape")
             delegate?.resizeSpineWhenRotate()
             delegate?.resizeLeafWhenRotate()
+            delegate?.redrawLinesWhenRotate()
         }
         
         if UIDeviceOrientationIsPortrait(UIDevice.current.orientation) {
             // print("Portrait")
             delegate?.resizeSpineWhenRotate()
             delegate?.resizeLeafWhenRotate()
+            delegate?.redrawLinesWhenRotate()
         }
         
     }
@@ -64,5 +66,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 protocol Rotation {
     func resizeSpineWhenRotate()
     func resizeLeafWhenRotate()
+    func redrawLinesWhenRotate()
 }
 

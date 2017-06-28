@@ -32,7 +32,8 @@ class ConfigurationViewController: UIViewController, UIPickerViewDataSource, UIP
         self.spinePicker.delegate = self
         self.spinePicker.dataSource = self
         
-        configureButton.bringSubview(toFront: self.view)
+        view.insertSubview(configureButton, aboveSubview: spinePicker)
+        
         
     }
     
