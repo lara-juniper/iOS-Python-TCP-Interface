@@ -9,16 +9,22 @@
 import UIKit
 import Foundation
 
-class ViewController: UIViewController, dataDelegate {
+class ViewController: UIViewController, dataDelegate, Rotation {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         connection.connect() //connect socket
         connection.sendDelegate = self //lets the connection send data to the view controller
-        print("You created \(spineImages.count) spine images and \(leafImages.count) leaf images")
+        appDelegate.delegate = self
         
-        generateSpineImages(spines: numberOfSpines)
-        generateLeafImages(leaves: numberOfLeaves)
+        if numberOfSpines > 0 {
+            generateSpineImages(spines: numberOfSpines) //create spine objects and display them
+        }
+        if numberOfLeaves > 0 {
+            generateLeafImages(leaves: numberOfLeaves) //create leaf objects and display them
+        }
+        
+        print("You created \(spineImages.count) spine images and \(leafImages.count) leaf images")
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,6 +35,7 @@ class ViewController: UIViewController, dataDelegate {
     //MARK: Objects
     
     //@IBOutlet weak var leafSwitch1: SwitchImage!
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var spineImages: [SwitchImage] = []
     var leafImages: [SwitchImage] = []
     
@@ -36,7 +43,7 @@ class ViewController: UIViewController, dataDelegate {
     //MARK: Variables and Constants
     
     let connection = Connection() //set up instance of iPad-Python server connection object
-    let imageHeightToWidthRatio: Double = 320/613
+    let imageHeightToWidthRatio: Double = 320/613 //height to width ratio of switch images
     
     
     //MARK: Functions
@@ -116,6 +123,44 @@ class ViewController: UIViewController, dataDelegate {
         }
         
     }
+    
+    func resizeSpineWhenRotate(){
+        var counter: Int = 0
+        for var spine in spineImages {
+            counter = counter + 1
+            let screenSize: CGRect = UIScreen.main.bounds
+            let screenWidth = screenSize.width
+            let screenHeight = screenSize.height
+            
+            let sections = (numberOfSpines*2 + 1)*2
+            let sectionWidth = Int(Double(screenWidth)/Double(sections))
+            let imageWidth = sectionWidth*3
+            
+            let imageXPos = Int(Double(1 + 4*(counter-1))*Double(sectionWidth))
+            spine.frame = CGRect(x: imageXPos, y: Int(Double(screenHeight)/3), width: imageWidth, height: Int(Double(imageWidth)*imageHeightToWidthRatio))
+            
+        }
+    }
+    
+    func resizeLeafWhenRotate(){
+        var counter: Int = 0
+        for var leaf in leafImages {
+            counter = counter + 1
+            let screenSize: CGRect = UIScreen.main.bounds
+            let screenWidth = screenSize.width
+            let screenHeight = screenSize.height
+            
+            let sections = (numberOfLeaves*2 + 1)*2
+            let sectionWidth = Int(Double(screenWidth)/Double(sections))
+            let imageWidth = sectionWidth*3
+            
+            let imageXPos = Int(Double(1 + 4*(counter-1))*Double(sectionWidth))
+            leaf.frame = CGRect(x: imageXPos, y: Int(2*Double(screenHeight)/3), width: imageWidth, height: Int(Double(imageWidth)*imageHeightToWidthRatio))
+        }
+        
+        
+    }
+
 
     //MARK: Actions
     

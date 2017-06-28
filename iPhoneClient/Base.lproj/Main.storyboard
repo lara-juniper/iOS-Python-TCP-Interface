@@ -67,6 +67,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="configureButton" destination="p3A-hx-xnc" id="fN0-UW-0D0"/>
                         <outlet property="spinePicker" destination="BSj-9c-1qt" id="uMp-cS-ony"/>
                     </connections>
                 </viewController>

@@ -15,10 +15,10 @@ import UIKit
 
 class ConfigurationViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
    
-    
-    //MARK: Outlets
-
+      //MARK: Outlets
+    @IBOutlet weak var configureButton: UIButton!
     @IBOutlet weak var spinePicker: UIPickerView!
+    
 
     
     //MARK: Variables
@@ -31,6 +31,8 @@ class ConfigurationViewController: UIViewController, UIPickerViewDataSource, UIP
         
         self.spinePicker.delegate = self
         self.spinePicker.dataSource = self
+        
+        configureButton.bringSubview(toFront: self.view)
         
     }
     
