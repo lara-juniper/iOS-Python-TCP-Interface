@@ -15,7 +15,7 @@ class Connection: NSObject, StreamDelegate {
     
     var inputStream: InputStream! //read-only stream data object
     var outputStream: OutputStream! //write-only stream data object
-    var inputBuffer = [UInt8](repeating: 0, count: 6) //create empty buffer where you store input message
+    var inputBuffer = [UInt8](repeating: 0, count: 100) //create empty buffer where you store input message
     
     var sendDelegate: dataDelegate? = nil //assign this to viewcontroller to which data will be sent
     

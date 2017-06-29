@@ -46,6 +46,7 @@ def launchVMs(leaf,spine):
     print(peerleaf)
     print(spinenumber_list)
     dictlist=[]
+
     def create_dict(underlay_list):
         r=0
         q=leaf-1
@@ -165,7 +166,8 @@ def launchVMs(leaf,spine):
                                                                     # Sleeps a random 1 to 10 seconds
                                                                     # rand_int_var = randint(1, 10)
         subprocess.call(['sudo', 'vagrant', 'up'])
-        print "Thread " + str(number) +"completed spinup"
+        print "Thread " + str(number) +" completed spinup"
+        sendStringToIPad("VM:" + str(number))
 
     thread_list = []
 
@@ -212,10 +214,10 @@ class IphoneChat(Protocol):
         leaves = int(splitData[1])
 
         print str(leaves) + " " + str(spines)
-        #if (int(leaves)>0 & int(spines)>0):
-        print("I'm about to launch VMs")
-        launchVMs(leaves,spines)
-        print("successsss")
+        if (int(leaves)>0 and int(spines)>0):
+            print("I'm about to launch VMs")
+            launchVMs(leaves,spines)
+            print("successsss")
 
 
 
@@ -225,7 +227,10 @@ class IphoneChat(Protocol):
         self.transport.write(message + '\n')
 
 
-
+def sendStringToIPad(string):
+    if len(factory.clients) > 0:
+        factory.clients[0].message(string)
+        
 
 
 
@@ -237,4 +242,8 @@ factory.clients = []
 reactor.listenTCP(80, factory)
 print "Iphone Chat server started"
 reactor.run()
+
+
+
+
 

@@ -71,14 +71,29 @@ class ViewController: UIViewController, dataDelegate, Rotation {
     
     //Function that is called by connection object whenever the socket receives data from Python to iPad
     func send(str: String) {
-        if str == "Hello!" {
-            for leaf in leafImages {
-                leaf.status = .Enabled
-            }
-            for spine in spineImages {
-                spine.status = .Enabled
+        
+        let enabledSwitches = processInputString(str: str)
+        let allSwitches = leafImages + spineImages
+        
+        for number in enabledSwitches {
+            allSwitches[number - 1].status = .Enabled
+        }
+    }
+    
+    func processInputString(str: String) -> [Int] {
+        let commandVec = str.components(separatedBy: "\n")
+        var switchNumbers: [Int] = []
+        for command in commandVec {
+            let split = command.components(separatedBy: ":")
+            if split[0] == "VM" {
+                let vm = split[1]
+                if let vmNumber = Int(vm) {
+                    switchNumbers.append(vmNumber)
+                }
             }
         }
+
+        return switchNumbers
     }
     
     //function to send strings from iPad --> Python
