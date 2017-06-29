@@ -194,11 +194,7 @@ class ViewController: UIViewController, dataDelegate, Rotation {
     @IBAction func sendMessage(_ sender: UIButton) {
         
         print("Button pressed")
-        sendMessageToPython(str: "Start")
-//        sleep(1)
-//        sendMessageToPython(str: "Spines: \(numberOfSpines)")
-//        sleep(1)
-//        sendMessageToPython(str: "Leaves: \(numberOfLeaves)")
+        sendMessageToPython(str: "\(numberOfSpines):\(numberOfLeaves)")
         
     }
 

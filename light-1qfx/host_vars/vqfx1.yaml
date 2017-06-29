@@ -8,12 +8,12 @@ underlay:
          asn: 5001
     neighbors:
       - interface: em3.100
-        asn: 5004
+        asn: 5003
         peer_ip: 10.10.1.2
         local_ip: 10.10.1.1
         vlan_id: 100
       - interface: em3.101
-        asn: 5005
+        asn: 5004
         peer_ip: 10.10.2.2
         local_ip: 10.10.2.1
         vlan_id: 101
