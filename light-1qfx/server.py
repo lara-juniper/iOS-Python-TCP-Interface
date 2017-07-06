@@ -9,8 +9,6 @@ import subprocess
 from threading import Timer
 import time
 
-#Global variables indicating the number of leaves and spines
-
 
 def launchVMs(leaf,spine):
     print "I'm at launchVMs"

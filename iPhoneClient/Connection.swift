@@ -10,7 +10,7 @@ import Foundation
 
 class Connection: NSObject, StreamDelegate {
     
-    let serverAddress: CFString = "127.0.0.1" as CFString //server address of computer you're connecting to. Must be on same network as iPad
+    let serverAddress: CFString = "172.24.83.118" as CFString //server address of computer you're connecting to. Must be on same network as iPad
     let serverPort: UInt32 = 80 //port to which you are connecting on the server computer
     
     var inputStream: InputStream! //read-only stream data object

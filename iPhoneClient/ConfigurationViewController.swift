@@ -7,8 +7,8 @@
 //
 
 //Global variables indicating the selected number of spines and leaves
-var numberOfSpines: Int = 0
-var numberOfLeaves: Int = 0
+var numberOfSpines: Int = 1
+var numberOfLeaves: Int = 2
 
 import Foundation
 import UIKit
@@ -22,7 +22,7 @@ class ConfigurationViewController: UIViewController, UIPickerViewDataSource, UIP
 
     
     //MARK: Variables
-    let spineNumbers: [Int] = Array(0...5) //number of spines/leaves available
+    let spineNumbers: [Int] = Array(1...5) //number of spines/leaves available
 
     
     //MARK: Main app functions
@@ -63,10 +63,10 @@ class ConfigurationViewController: UIViewController, UIPickerViewDataSource, UIP
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch component {
         case 0:
-            numberOfSpines = row
+            numberOfSpines = row + 1
             print("You selected \(numberOfSpines) spines.")
         case 1:
-            numberOfLeaves = row 
+            numberOfLeaves = row + 1
             print("You selected \(numberOfLeaves) leaves.")
         default:
             break
