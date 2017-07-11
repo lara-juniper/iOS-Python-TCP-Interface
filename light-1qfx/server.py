@@ -206,7 +206,7 @@ def launchVMs(leaf,spine):
                                                                     # Demonstrates that the main process waited for threads to complete
     print "Done creating vms"
 
-    subprocess.call(['sudo', 'ansible-playbook', "pb.conf.all.commit.yaml"])
+    subprocess.call(['sudo', 'ansible-playbook', "ebgpconf.yaml"])
     print("success-check config")
 
 
