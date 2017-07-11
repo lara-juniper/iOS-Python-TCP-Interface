@@ -1,5 +1,5 @@
 from twisted.internet.protocol import Factory, Protocol
-from twisted.internet import reactor
+from twisted.internet import reactor, threads
 import jinja2
 import json
 import os
@@ -8,12 +8,26 @@ from time import sleep
 import subprocess
 from threading import Timer
 import time
+from subprocess import check_output
+
+
+def deleteVMs():
+    vms=subprocess.check_output(['sudo', 'VBoxManage', 'list', 'vms'])
+    lines=(vms).splitlines()
+    vmnames=[]
+    for element in lines :
+        vmnames.append(((element.split(' '))[0]).replace('\"',''))
+    for vms in vmnames :
+        subprocess.call(['sudo', 'VBoxManage', 'controlvm', vms, 'poweroff'])
+    for vms in vmnames:
+        subprocess.call(['sudo', 'VBoxManage', 'unregistervm', '--delete', vms])
+    print('Deleted VMs')
 
 
 def launchVMs(leaf,spine):
     print "I'm at launchVMs"
-    total= leaf+spine
-    ippair=leaf*spine
+    total= leaf+spine #total number of switches
+    ippair=leaf*spine #total numbers of leaf/spine pairs
     print(total)
     p=0
     localip=[]
@@ -160,12 +174,15 @@ def launchVMs(leaf,spine):
     f.close()
     create_conf()
 
+    
     def spinvm(number):
-                                                                    # Sleeps a random 1 to 10 seconds
-                                                                    # rand_int_var = randint(1, 10)
+                                                     # Sleeps a random 1 to 10 seconds
+        strToIpad = "VM:" + str(number)
+        d = threads.deferToThread(sendStringToIPad, strToIpad)                                                          # rand_int_var = randint(1, 10)
         subprocess.call(['sudo', 'vagrant', 'up'])
         print "Thread " + str(number) +" completed spinup"
-        sendStringToIPad("VM:" + str(number))
+        
+        
 
     thread_list = []
 
@@ -179,7 +196,7 @@ def launchVMs(leaf,spine):
                                                                     # Starts threads
     for thread in thread_list:
         thread.start()
-        time.sleep(10)
+        time.sleep(5)
 
                                                                     # This blocks the calling thread until the thread whose join() method is called is terminated.
                                                                     # From http://docs.python.org/2/library/threading.html#thread-objects
@@ -193,6 +210,25 @@ def launchVMs(leaf,spine):
     print("success-check config")
 
 
+def processReceivedString(data):
+        splitData = data.split(':')
+
+        if splitData[0] == "spineLeaf":
+            spines = int(splitData[1])
+            leaves = int(splitData[2])
+
+            print str(leaves) + " " + str(spines)
+            if (int(leaves)>0 and int(spines)>0):
+                print("I'm about to launch VMs")
+                launchVMs(leaves,spines)
+                print("successsss")
+                sendStringToIPad("done:")
+
+        elif splitData[0] == "delete":
+            deleteVMs()
+
+        elif splitData[0] == "disconnect":
+            factory.clients[0].connectionLost("back button pressed")
 
 
 class IphoneChat(Protocol):
@@ -202,20 +238,17 @@ class IphoneChat(Protocol):
 
 
     def connectionLost(self, reason):
-        self.factory.clients.remove(self) #remove client from list when it disconnects
+        try:
+            self.factory.clients.remove(self) #remove client from list when it disconnects
+            print "connection lost because " + str(reason)
+        except ValueError as e: 
+            print "connection could not be lost because {0}".format(e)
+        else:
+            return
 
     def dataReceived(self, data): #function runs when new data is received from client
         print "Received message: " + data
-        splitData = data.split(':')
-        
-        spines = int(splitData[0])
-        leaves = int(splitData[1])
-
-        print str(leaves) + " " + str(spines)
-        if (int(leaves)>0 and int(spines)>0):
-            print("I'm about to launch VMs")
-            launchVMs(leaves,spines)
-            print("successsss")
+        processReceivedString(data)
 
 
 

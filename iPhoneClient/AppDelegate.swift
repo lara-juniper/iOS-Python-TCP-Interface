@@ -12,12 +12,13 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var delegate: Rotation? = nil
+    var delegate: Rotation? = nil //define the viewcontroller as a delegate
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        //notify the app when the screen rotates
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.rotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
         return true
     }
@@ -44,6 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
+    //Implement a function that resizes the leaves and spines whenever the device rotates
     func rotated() {
         if UIDeviceOrientationIsLandscape(UIDevice.current.orientation) {
             // print("Landscape")
@@ -63,6 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+//rotation protocol for the delegate
 protocol Rotation {
     func resizeSpineWhenRotate()
     func resizeLeafWhenRotate()

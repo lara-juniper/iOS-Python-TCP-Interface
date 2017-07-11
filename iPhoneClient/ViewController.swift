@@ -15,7 +15,7 @@ class ViewController: UIViewController, dataDelegate, Rotation {
         super.viewDidLoad()
         connection.connect() //connect socket
         connection.sendDelegate = self //lets the connection send data to the view controller
-        appDelegate.delegate = self
+        appDelegate.delegate = self //enables view controller to run functions when device rotates
         
         if numberOfSpines > 0 {
             generateSpineImages(spines: numberOfSpines) //create spine objects and display them
@@ -26,10 +26,12 @@ class ViewController: UIViewController, dataDelegate, Rotation {
         
         print("You created \(spineImages.count) spine images and \(leafImages.count) leaf images")
         
-        drawLines()
+        drawLines() //draw lines between spine and leaf images
         
+        //order the views one on top of each other to avoid buttons being unclickable
         view.insertSubview(enableEBGPButton, aboveSubview: spineImages[spineImages.count - 1])
         view.insertSubview(backButton, aboveSubview: enableEBGPButton)
+        view.insertSubview(exitButton, aboveSubview: backButton)
         
     }
 
@@ -40,15 +42,20 @@ class ViewController: UIViewController, dataDelegate, Rotation {
     
     //MARK: Objects
     
-    //@IBOutlet weak var leafSwitch1: SwitchImage!
+    //App delegate, which runs functions when the app closes, rotates the screen, etc
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    //Arrays of spine and leaf images, and the lines connecting them
     var spineImages: [SwitchImage] = []
     var leafImages: [SwitchImage] = []
     var lines: [LineView] = []
     
+    //Outlets to the buttons
     @IBOutlet weak var enableEBGPButton: UIButton!
 
     @IBOutlet weak var backButton: UIButton!
+    
+    @IBOutlet weak var exitButton: UIButton!
     
     //MARK: Variables and Constants
     
@@ -58,6 +65,7 @@ class ViewController: UIViewController, dataDelegate, Rotation {
     
     //MARK: Functions
     
+    //Function is called to draw lines between every spine and every leaf
     func drawLines() {
         for spine in spineImages {
             for leaf in leafImages {
@@ -69,7 +77,7 @@ class ViewController: UIViewController, dataDelegate, Rotation {
         }
     }
     
-    //Function that is called by connection object whenever the socket receives data from Python to iPad
+    //Function executed by connection object every time iPad receives data from Python
     func send(str: String) {
         
         let enabledSwitches = processInputString(str: str)
@@ -80,20 +88,23 @@ class ViewController: UIViewController, dataDelegate, Rotation {
         }
     }
     
+    //Manage iPad --> Python communication (command parsing)
     func processInputString(str: String) -> [Int] {
         let commandVec = str.components(separatedBy: "\n")
         var switchNumbers: [Int] = []
         for command in commandVec {
             let split = command.components(separatedBy: ":")
-            if split[0] == "VM" {
+            if split[0] == "VM" { //collect the numbers of switches and leaves that have been successfully enabled
                 let vm = split[1]
                 if let vmNumber = Int(vm) {
                     switchNumbers.append(vmNumber)
                 }
+            } else if split[0] == "done" { //If the VMs have been spun up, reenable the exit button
+                exitButton.isEnabled = true
             }
         }
 
-        return switchNumbers
+        return switchNumbers //return which switch numbers should be enabled
     }
     
     //function to send strings from iPad --> Python
@@ -205,13 +216,30 @@ class ViewController: UIViewController, dataDelegate, Rotation {
 
     //MARK: Actions
     
-    //Send message from iPad to Python server using button press. Function called at each button press
+    
+    var preventDoubleClickingEnabled: Bool = false
+    
+    //enable eBGP
     @IBAction func sendMessage(_ sender: UIButton) {
         
         print("Button pressed")
-        sendMessageToPython(str: "\(numberOfSpines):\(numberOfLeaves)")
+        if !preventDoubleClickingEnabled {
+            sendMessageToPython(str: "spineLeaf:\(numberOfSpines):\(numberOfLeaves)")
+            preventDoubleClickingEnabled = true
+        }
+        backButton.isEnabled = false
+        exitButton.isEnabled = false
         
     }
-
+    //Disconnect from socket when disconnected
+    @IBAction func backButtonPress(_ sender: Any) {
+        sendMessageToPython(str: "disconnect:")
+    }
+    //Exit the app and close the VMs
+    @IBAction func ExitButtonPress(_ sender: Any) {
+        sendMessageToPython(str: "delete:")
+        backButton.isEnabled = true
+        preventDoubleClickingEnabled = false
+    }
 }
 
