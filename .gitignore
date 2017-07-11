@@ -1,0 +1,7 @@
+light-1qfx/simpleServer.py
+light-1qfx/.vagrant/*
+light-1qfx/host_vars/*
+.DS_Store
+light-1qfx/pb.conf.all.commit.retry
+light-1qfx/sample.json
+
