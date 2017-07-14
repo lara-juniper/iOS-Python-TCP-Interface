@@ -88,7 +88,7 @@ class ViewController: UIViewController, dataDelegate, Rotation {
         }
     }
     
-    //Manage iPad --> Python communication (command parsing)
+    //Manage Python --> iPad communication (command parsing)
     func processInputString(str: String) -> [Int] {
         let commandVec = str.components(separatedBy: "\n")
         var switchNumbers: [Int] = []
@@ -223,21 +223,21 @@ class ViewController: UIViewController, dataDelegate, Rotation {
     @IBAction func sendMessage(_ sender: UIButton) {
         
         print("Button pressed")
-        if !preventDoubleClickingEnabled {
-            sendMessageToPython(str: "spineLeaf:\(numberOfSpines):\(numberOfLeaves)")
+        //if !preventDoubleClickingEnabled {
+            sendMessageToPython(str: "spineLeaf:\(numberOfSpines):\(numberOfLeaves)\n")
             preventDoubleClickingEnabled = true
-        }
+        //}
         backButton.isEnabled = false
         exitButton.isEnabled = false
         
     }
     //Disconnect from socket when disconnected
     @IBAction func backButtonPress(_ sender: Any) {
-        sendMessageToPython(str: "disconnect:")
+        sendMessageToPython(str: "disconnect:\n")
     }
     //Exit the app and close the VMs
     @IBAction func ExitButtonPress(_ sender: Any) {
-        sendMessageToPython(str: "delete:")
+        sendMessageToPython(str: "delete:\n")
         backButton.isEnabled = true
         preventDoubleClickingEnabled = false
     }

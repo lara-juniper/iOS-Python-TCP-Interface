@@ -1,5 +1,10 @@
-from twisted.internet.protocol import Factory, Protocol
-from twisted.internet import reactor, threads
+
+# -*- coding: utf-8 -*-
+# Foundations of Python Network Programming - Chapter 3 - tcp_sixteen.py
+# Simple TCP client and server that send and receive 16 octets
+
+import socket, sys
+import time
 import jinja2
 import json
 import os
@@ -7,9 +12,16 @@ import threading
 from time import sleep
 import subprocess
 from threading import Timer
-import time
 from subprocess import check_output
 
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+HOST = '172.24.83.118'
+PORT = 80
+MAX = 1024
+
+recvBuffer = ''
 
 def deleteVMs():
     vms=subprocess.check_output(['sudo', 'VBoxManage', 'list', 'vms'])
@@ -23,8 +35,7 @@ def deleteVMs():
         subprocess.call(['sudo', 'VBoxManage', 'unregistervm', '--delete', vms])
     print('Deleted VMs')
 
-
-def launchVMs(leaf,spine):
+def launchVMs(leaf,spine,socket):
     print "I'm at launchVMs"
     total= leaf+spine #total number of switches
     ippair=leaf*spine #total numbers of leaf/spine pairs
@@ -177,10 +188,10 @@ def launchVMs(leaf,spine):
     
     def spinvm(number):
                                                      # Sleeps a random 1 to 10 seconds
-        strToIpad = "VM:" + str(number)
-        d = threads.deferToThread(sendStringToIPad, strToIpad)                                                          # rand_int_var = randint(1, 10)
+        strToIpad = "VM:" + str(number) + '\n'                                                        # rand_int_var = randint(1, 10)
         subprocess.call(['sudo', 'vagrant', 'up'])
         print "Thread " + str(number) +" completed spinup"
+        socket.sendall(strToIpad) 
         
         
 
@@ -210,7 +221,32 @@ def launchVMs(leaf,spine):
     print("success-check config")
 
 
-def processReceivedString(data):
+
+def recv_all(sock):
+
+   global recvBuffer
+   data = ''
+   text = sock.recv(MAX)
+
+   if (text[-1] == '\n') and ( not recvBuffer):
+        data = text[0:len(text)-1]
+   elif not recvBuffer:
+        recvBuffer = text
+   elif text[-1] == '\n':
+        data = recvBuffer + text[0:len(text)-1]
+   else:
+        recvBuffer += text
+
+   return data
+
+def reply(socket):
+    for i in range(1,6):
+        string = "VM:" + str(i) + "\n"
+        socket.sendall(string)
+        time.sleep(2)
+    socket.sendall("done:")
+
+def processReceivedString(socket,data):
         splitData = data.split(':')
 
         if splitData[0] == "spineLeaf":
@@ -220,61 +256,35 @@ def processReceivedString(data):
             print str(leaves) + " " + str(spines)
             if (int(leaves)>0 and int(spines)>0):
                 print("I'm about to launch VMs")
-                launchVMs(leaves,spines)
+                launchVMs(leaves,spines,socket)
                 print("successsss")
-                sendStringToIPad("done:")
+                socket.sendall("done:")
 
         elif splitData[0] == "delete":
             deleteVMs()
 
         elif splitData[0] == "disconnect":
-            factory.clients[0].connectionLost("back button pressed")
-
-
-class IphoneChat(Protocol):
-    def connectionMade(self):
-        self.factory.clients.append(self) #add connected device to client list
-        print "clients are ", self.factory.clients #print client list
-
-
-    def connectionLost(self, reason):
-        try:
-            self.factory.clients.remove(self) #remove client from list when it disconnects
-            print "connection lost because " + str(reason)
-        except ValueError as e: 
-            print "connection could not be lost because {0}".format(e)
-        else:
-            return
-
-    def dataReceived(self, data): #function runs when new data is received from client
-        print "Received message: " + data
-        processReceivedString(data)
-
-
-
-    
-
-    def message(self, message):
-        self.transport.write(message + '\n')
-
-
-def sendStringToIPad(string):
-    if len(factory.clients) > 0:
-        factory.clients[0].message(string)
-        
+            print "disconnect"
 
 
 
 
-#Set up TCP Server
-factory = Factory()
-factory.protocol = IphoneChat
-factory.clients = []
-reactor.listenTCP(80, factory)
-print "Iphone Chat server started"
-reactor.run()
-
-
-
+s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+s.bind((HOST, PORT))
+s.listen(1)
+while True:
+  print 'Listening at', s.getsockname()
+  sc, sockname = s.accept()
+  print 'We have accepted a connection from', sockname
+  print 'Socket connects', sc.getsockname(), 'and', sc.getpeername()
+  message = recv_all(sc)
+  print 'The incoming sixteen-octet message says', repr(message)
+  processReceivedString(sc, message)
+  splitData = message.split(':')
+  if splitData[0] == "spineLeaf":
+    message = recv_all(sc)
+    processReceivedString(sc, message)
+  sc.close()
+  print 'Reply sent, socket closed'
 
 
