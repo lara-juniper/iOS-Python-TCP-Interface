@@ -57,6 +57,8 @@ class ViewController: UIViewController, dataDelegate, Rotation {
     
     @IBOutlet weak var exitButton: UIButton!
     
+    @IBOutlet weak var loadingView: UIActivityIndicatorView!
+    
     //MARK: Variables and Constants
     
     let connection = Connection() //set up instance of iPad-Python server connection object
@@ -101,6 +103,7 @@ class ViewController: UIViewController, dataDelegate, Rotation {
                 }
             } else if split[0] == "done" { //If the VMs have been spun up, reenable the exit button
                 exitButton.isEnabled = true
+                loadingView.stopAnimating()
             } else if split[0] == "IP" {
                 
             }
@@ -227,6 +230,8 @@ class ViewController: UIViewController, dataDelegate, Rotation {
         sendMessageToPython(str: "spineLeaf:\(numberOfSpines):\(numberOfLeaves)\n")
         backButton.isEnabled = false
         exitButton.isEnabled = false
+        loadingView.startAnimating()
+        enableEBGPButton.isEnabled = false
         
     }
     //Disconnect from socket when disconnected
@@ -237,6 +242,11 @@ class ViewController: UIViewController, dataDelegate, Rotation {
     @IBAction func ExitButtonPress(_ sender: Any) {
         sendMessageToPython(str: "delete:\n")
         backButton.isEnabled = true
+        enableEBGPButton.isEnabled = true
+        let allSwitches = spineImages + leafImages
+        for s in allSwitches {
+            s.status = .Disabled
+        }
     }
 }
 
