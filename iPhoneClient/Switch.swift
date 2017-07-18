@@ -9,7 +9,8 @@
 import UIKit
 
 class SwitchImage: UIImageView {
-
+    
+    var IPAddress = "10.0.0.0"
     
    var status: switchStatus = switchStatus.Neutral {
         didSet {

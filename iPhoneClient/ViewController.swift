@@ -101,6 +101,8 @@ class ViewController: UIViewController, dataDelegate, Rotation {
                 }
             } else if split[0] == "done" { //If the VMs have been spun up, reenable the exit button
                 exitButton.isEnabled = true
+            } else if split[0] == "IP" {
+                
             }
         }
 
@@ -180,11 +182,11 @@ class ViewController: UIViewController, dataDelegate, Rotation {
             let screenHeight = screenSize.height
             
             let sections = (numberOfSpines*2 + 1)*2
-            let sectionWidth = Int(Double(screenWidth)/Double(sections))
+            let sectionWidth = Int(Double(screenHeight)/Double(sections))
             let imageWidth = sectionWidth*3
             
             let imageXPos = Int(Double(1 + 4*(counter-1))*Double(sectionWidth))
-            spine.frame = CGRect(x: imageXPos, y: Int(Double(screenHeight)/3) - 50, width: imageWidth, height: Int(Double(imageWidth)*imageHeightToWidthRatio))
+            spine.frame = CGRect(x: imageXPos, y: Int(Double(screenWidth)/3) - 50, width: imageWidth, height: Int(Double(imageWidth)*imageHeightToWidthRatio))
             
         }
     }
@@ -198,11 +200,11 @@ class ViewController: UIViewController, dataDelegate, Rotation {
             let screenHeight = screenSize.height
             
             let sections = (numberOfLeaves*2 + 1)*2
-            let sectionWidth = Int(Double(screenWidth)/Double(sections))
+            let sectionWidth = Int(Double(screenHeight)/Double(sections))
             let imageWidth = sectionWidth*3
             
             let imageXPos = Int(Double(1 + 4*(counter-1))*Double(sectionWidth))
-            leaf.frame = CGRect(x: imageXPos, y: Int(2*Double(screenHeight)/3) - 50, width: imageWidth, height: Int(Double(imageWidth)*imageHeightToWidthRatio))
+            leaf.frame = CGRect(x: imageXPos, y: Int(2*Double(screenWidth)/3) - 50, width: imageWidth, height: Int(Double(imageWidth)*imageHeightToWidthRatio))
         }
     }
     
@@ -217,16 +219,12 @@ class ViewController: UIViewController, dataDelegate, Rotation {
     //MARK: Actions
     
     
-    var preventDoubleClickingEnabled: Bool = false
     
     //enable eBGP
     @IBAction func sendMessage(_ sender: UIButton) {
         
         print("Button pressed")
-        //if !preventDoubleClickingEnabled {
-            sendMessageToPython(str: "spineLeaf:\(numberOfSpines):\(numberOfLeaves)\n")
-            preventDoubleClickingEnabled = true
-        //}
+        sendMessageToPython(str: "spineLeaf:\(numberOfSpines):\(numberOfLeaves)\n")
         backButton.isEnabled = false
         exitButton.isEnabled = false
         
@@ -239,7 +237,6 @@ class ViewController: UIViewController, dataDelegate, Rotation {
     @IBAction func ExitButtonPress(_ sender: Any) {
         sendMessageToPython(str: "delete:\n")
         backButton.isEnabled = true
-        preventDoubleClickingEnabled = false
     }
 }
 

@@ -65,8 +65,8 @@ def launchVMs(leaf,spine,socket):
             spinenumber_list.append(i+1)
             #print(spineips)
             q=q+1
-    print (spineips)
-    print(peerleaf)
+    print (spineips) #spine IPs
+    print(peerleaf) #leaf IPs
     print(spinenumber_list)
     dictlist=[]
 

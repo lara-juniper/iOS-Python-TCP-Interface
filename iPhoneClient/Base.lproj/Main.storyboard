@@ -30,7 +30,8 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p3A-hx-xnc">
-                                <rect key="frame" x="153" y="542" width="68" height="30"/>
+                                <rect key="frame" x="121.5" y="524" width="131" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Configure"/>
                                 <connections>
                                     <segue destination="BYZ-38-t0r" kind="show" id="sFw-6E-4N0"/>
@@ -40,13 +41,13 @@
                                 <rect key="frame" x="20" y="131" width="335" height="216.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Number of Spines and Leaves" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U6T-ff-f62">
-                                        <rect key="frame" x="0.0" y="98" width="280.5" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="0.0" y="90.5" width="335" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <pickerView contentMode="scaleToFill" horizontalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="BSj-9c-1qt">
-                                        <rect key="frame" x="280.5" y="0.5" width="54.5" height="216"/>
+                                        <rect key="frame" x="335" y="0.5" width="0.0" height="216"/>
                                     </pickerView>
                                 </subviews>
                                 <constraints>
@@ -89,7 +90,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iz6-UC-Qf5">
-                                <rect key="frame" x="63" y="544" width="34" height="30"/>
+                                <rect key="frame" x="63" y="526" width="66" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Back"/>
                                 <connections>
                                     <action selector="backButtonPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rCI-Tq-Pn2"/>
@@ -104,20 +106,22 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aEm-JB-KWW">
-                                <rect key="frame" x="223" y="544" width="89" height="30"/>
+                                <rect key="frame" x="139" y="544" width="173" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="hlF-cQ-HMJ"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Enable eBGP"/>
                                 <connections>
                                     <action selector="sendMessage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hsv-Lp-CFk"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5KM-aX-2Qx">
-                                <rect key="frame" x="260" y="609" width="30" height="30"/>
+                                <rect key="frame" x="251" y="591" width="49" height="48"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="N6S-Jy-SU0"/>
+                                    <constraint firstAttribute="width" constant="49" id="N6S-Jy-SU0"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Exit"/>
                                 <connections>
                                     <action selector="ExitButtonPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gql-X0-wns"/>
@@ -126,7 +130,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.85098039219999999" green="0.92952282559999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="5KM-aX-2Qx" secondAttribute="trailing" constant="69" id="0NV-HW-ok8"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="5KM-aX-2Qx" secondAttribute="trailing" constant="59" id="0NV-HW-ok8"/>
                             <constraint firstItem="gvm-pU-oUq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="9jH-gY-nzd"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="aEm-JB-KWW" secondAttribute="bottom" constant="93" id="A9S-rj-eqB"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="gvm-pU-oUq" secondAttribute="bottom" id="L8H-bL-xFU"/>

@@ -7,7 +7,7 @@
 //
 
 //Global variables indicating the selected number of spines and leaves
-var numberOfSpines: Int = 1
+var numberOfSpines: Int = 2
 var numberOfLeaves: Int = 2
 
 import Foundation
@@ -58,6 +58,28 @@ class ConfigurationViewController: UIViewController, UIPickerViewDataSource, UIP
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
             return String(spineNumbers[row])
     }
+    
+    //Style
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        
+        var label = view as! UILabel!
+        if label == nil {
+            label = UILabel()
+        }
+        switch component {
+        case 0:
+            
+            label?.text = String(spineNumbers[row])
+            label?.font = UIFont(name:"Times New Roman", size:35)
+            return label!
+        default:
+            label?.text = String(spineNumbers[row])
+            label?.font = UIFont(name:"Times New Roman", size:30)
+            return label!
+        }
+        
+    }
+
     
     //Function executes when numbers are selected
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
