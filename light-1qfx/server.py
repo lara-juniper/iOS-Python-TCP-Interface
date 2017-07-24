@@ -77,8 +77,10 @@ def launchVMs(leaf,spine,socket):
             if r < leaf:
                 dicti={}
                 dicti['hostname']=switchlist[r]
-                dicti['loopback']="1.1.1."+str(r+1)
+                dicti['loopback']="10.10.139."+str(r+1)
                 dicti['asn']=('500'+str(r+1))
+		dicti['device']='leaf'
+		dicti['cluster']='dummy'
                 dicti['underlay']=underlay_list[p]
                 r=r+1
                 dictlist.append(dicti)
@@ -86,9 +88,11 @@ def launchVMs(leaf,spine,socket):
             else :
                 dicti2={}
                 dicti2['hostname']=switchlist[r]
-                dicti2['loopback']="1.1.1."+str(r+1)
+                dicti2['loopback']="10.10.139."+str(r+1)
                 dicti2['asn']=('500'+str(r+1))
-                dicti2['underlay']=underlay_list[p]
+                dicti2['device']="spine"
+		dicti2['cluster']=str(r-leaf+1)+"."+str(r-leaf+1)+"."+str(r-leaf+1)+"."+str(r-leaf+1)
+		dicti2['underlay']=underlay_list[p]
                 dictlist.append(dicti2)
                 r=r+1
         return(dictlist)
@@ -184,7 +188,11 @@ def launchVMs(leaf,spine,socket):
     print >> f, j
     f.close()
     create_conf()
-
+    
+    def evpnconf():
+	subprocess.call(['sudo', 'ansible-playbook', "evpnconf.yaml"])
+	print("success-check config")
+	
     
     def spinvm(number):
                                                      # Sleeps a random 1 to 10 seconds
