@@ -17,6 +17,12 @@ class ViewController: UIViewController, dataDelegate, Rotation {
         connection.sendDelegate = self //lets the connection send data to the view controller
         appDelegate.delegate = self //enables view controller to run functions when device rotates
         
+        loadingView.transform = CGAffineTransform(scaleX: 2, y: 2)
+        loadingView.isHidden = true
+        
+        enableEVPNButton.isEnabled = false
+        
+        
         if numberOfSpines > 0 {
             generateSpineImages(spines: numberOfSpines) //create spine objects and display them
         }
@@ -28,10 +34,13 @@ class ViewController: UIViewController, dataDelegate, Rotation {
         
         drawLines() //draw lines between spine and leaf images
         
+        showIPs()
+        
         //order the views one on top of each other to avoid buttons being unclickable
         view.insertSubview(enableEBGPButton, aboveSubview: spineImages[spineImages.count - 1])
         view.insertSubview(backButton, aboveSubview: enableEBGPButton)
         view.insertSubview(exitButton, aboveSubview: backButton)
+        view.insertSubview(enableEVPNButton, aboveSubview: exitButton)
         
     }
 
@@ -49,6 +58,7 @@ class ViewController: UIViewController, dataDelegate, Rotation {
     var spineImages: [SwitchImage] = []
     var leafImages: [SwitchImage] = []
     var lines: [LineView] = []
+    var evpnLines: [LineView] = []
     
     //Outlets to the buttons
     @IBOutlet weak var enableEBGPButton: UIButton!
@@ -58,6 +68,8 @@ class ViewController: UIViewController, dataDelegate, Rotation {
     @IBOutlet weak var exitButton: UIButton!
     
     @IBOutlet weak var loadingView: UIActivityIndicatorView!
+    
+    @IBOutlet weak var enableEVPNButton: UIButton!
     
     //MARK: Variables and Constants
     
@@ -104,6 +116,8 @@ class ViewController: UIViewController, dataDelegate, Rotation {
             } else if split[0] == "done" { //If the VMs have been spun up, reenable the exit button
                 exitButton.isEnabled = true
                 loadingView.stopAnimating()
+                loadingView.isHidden = true
+                enableEVPNButton.isEnabled = true
             } else if split[0] == "IP" {
                 
             }
@@ -215,11 +229,42 @@ class ViewController: UIViewController, dataDelegate, Rotation {
         for line in lines {
             line.removeFromSuperview()
         }
+        for line in evpnLines {
+            line.removeFromSuperview()
+        }
         drawLines()
+        drawEVPNLines()
+    }
+    
+    func showIPs() {
+        let IP = "10.0.0.1"
+        for spine in spineImages {
+            spine.IPAddress = IP
+            let label: UILabel = UILabel(frame: CGRect(x: spine.center.x, y: spine.center.y, width: 200, height: 100))
+            label.text = IP
+            view.insertSubview(label, aboveSubview: spine)
+        }
+        for leaf in leafImages {
+            leaf.IPAddress = IP
+            let label: UILabel = UILabel(frame: CGRect(x: leaf.center.x, y: leaf.center.y, width: 200, height: 100))
+            label.text = IP
+            view.insertSubview(label, aboveSubview: leaf)
+        }
+    }
+    
+    func drawEVPNLines() {
+        if leafImages.count > 1 {
+            for i in 0...(leafImages.count - 2) {
+                let line: LineView = LineView(frame: view.frame)
+                line.setEndpoints(start: leafImages[i].center, end: leafImages[i+1].center)
+                view.insertSubview(line, belowSubview: spineImages[0])
+                evpnLines.append(line)
+            }
+        }
     }
 
 
-    //MARK: Actions
+    //MARK: Actions that define what happens when you press a button on the iPad screen
     
     
     
@@ -230,6 +275,7 @@ class ViewController: UIViewController, dataDelegate, Rotation {
         sendMessageToPython(str: "spineLeaf:\(numberOfSpines):\(numberOfLeaves)\n")
         backButton.isEnabled = false
         exitButton.isEnabled = false
+        loadingView.isHidden = false
         loadingView.startAnimating()
         enableEBGPButton.isEnabled = false
         
@@ -243,10 +289,20 @@ class ViewController: UIViewController, dataDelegate, Rotation {
         sendMessageToPython(str: "delete:\n")
         backButton.isEnabled = true
         enableEBGPButton.isEnabled = true
+        enableEVPNButton.isEnabled = false
         let allSwitches = spineImages + leafImages
         for s in allSwitches {
             s.status = .Disabled
         }
+        for line in evpnLines {
+            line.removeFromSuperview()
+        }
     }
+    
+    
+    @IBAction func enableEVPN(_ sender: Any) {
+        drawEVPNLines()
+    }
+    
 }
 
