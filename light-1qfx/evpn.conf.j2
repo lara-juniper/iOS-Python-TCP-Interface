@@ -122,7 +122,7 @@ protocols {
 	    local-as 64512;
 	    multipath;
 {% for neighbor in underlay.neighbors %}
-            neighbor {{ neighbor.peer_ip }};
+            neighbor {{ neighbor.peer_loopback }};
 {% endfor %}	       
     }
 }
