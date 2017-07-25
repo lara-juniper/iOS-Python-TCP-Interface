@@ -2,15 +2,17 @@
 host:
     loopback:
         ip: {{ loopback }}
-
+    device: {{ device }}
+    cluster: {{ cluster }}
 underlay:
     local:
-         asn: {{ asn }}
+        asn: {{ asn }}
     neighbors:
       {% for inter in underlay %}
       - interface: {{ inter.name }}
         asn: {{ inter.p_asn }}
         peer_ip: {{ inter.peer_ip }}
+	peer_loopback: {{ inter.peer_loopback }}
         local_ip: {{ inter.local_ip }}
         vlan_id: {{ inter.id }}
       {% endfor %}
