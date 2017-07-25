@@ -118,6 +118,7 @@ def launchVMs(leaf,spine,socket):
                     #templist=[]
                     tempdict['name']="em3."+str(s+1)+"0"+str(m)
                     tempdict['id']=str(s+1)+"0"+str(m)
+		    tempdict['peer_loopback']='10.'+'10.'+'139.'+str(total-m)
                     tempdict['local_ip']=localip[x]
                     tempdict['peer_ip']=peerip[x]
                     tempdict['p_asn']=('500'+str(q))
@@ -135,6 +136,7 @@ def launchVMs(leaf,spine,socket):
                     tempdict={}
                     tempdict['name']="em3."+str(m+1)+"0"+str(h)
                     tempdict['id']=str(m+1)+"0"+str(h)
+		    tempdict['peer_loopback']='10.'+'10.'+'139.'+str(m+1)
                     tempdict['local_ip']=spineips[w]
                     tempdict['peer_ip']=peerleaf[w]
                     tempdict['p_asn']=('500'+str(m+1))
