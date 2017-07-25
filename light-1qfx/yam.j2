@@ -2,10 +2,11 @@
 host:
     loopback:
         ip: {{ loopback }}
-
+    device: {{ device }}
+    cluster: {{ cluster }}
 underlay:
     local:
-         asn: {{ asn }}
+        asn: {{ asn }}
     neighbors:
       {% for inter in underlay %}
       - interface: {{ inter.name }}
