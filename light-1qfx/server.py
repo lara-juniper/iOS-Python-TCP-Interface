@@ -180,16 +180,38 @@ def launchVMs(leaf,spine,socket):
                 f.close()
                 print("Configuration '%s' created..." % (parameter['hostname'] + ".yaml"))
         print("DONE")
-
+    def host_conf(hostnamelist):
+ 	template_file = "hostfile.j2"
+	output_directory = "provisioners"
+	print("Create Jinja2 environment...")
+	env = jinja2.Environment(loader=jinja2.FileSystemLoader(searchpath="."),
+                         trim_blocks=True,
+                         lstrip_blocks=True)
+	template = env.get_template(template_file)
+	# make sure that the output directory exists
+	if not os.path.exists(output_directory):
+    		os.mkdir(output_directory)
+	print("Create hostfile...")
+	f = open(os.path.join(output_directory, "ansible_inventory"), "w")
+	result = template.render(hostnamelist=hostnamelist)
+	f.write(result)
+	f.close()
+	print("Configuration '%s' created..." % ("ansible_inventory"))
+	print("DONE")
     templist2=create_underlay()         
     print(templist2)
     final_json=create_dict(templist2)
     print(final_json)
+    hostnamelist=[]
+    #device_count=0
+    for f in final_json:
+	hostnamelist.append(f['hostname'])
     j = json.dumps(final_json, indent=4)
     f = open('sample.json', 'w')
     print >> f, j
     f.close()
     create_conf()
+    host_conf(hostnamelist)
     
     def evpnconf():
 	subprocess.call(['sudo', 'ansible-playbook', "evpnconf.yaml"])
