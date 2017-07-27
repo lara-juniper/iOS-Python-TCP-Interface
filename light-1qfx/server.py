@@ -201,6 +201,10 @@ def launchVMs(leaf,spine,socket):
     templist2=create_underlay()         
     print(templist2)
     final_json=create_dict(templist2)
+    hostnamelist=[]
+    for f in final_json:
+    	hostnamelist.append(f['hostname'])
+         
     print(final_json)
     hostnamelist=[]
     #device_count=0
@@ -216,7 +220,9 @@ def launchVMs(leaf,spine,socket):
     def evpnconf():
 	subprocess.call(['sudo', 'ansible-playbook', "evpnconf.yaml"])
 	print("success-check config")
-	
+    def vtepconf():
+        subprocess.call(['sudo', 'ansible-playbook', "vtep.yaml"])
+        print("success-check config")	
     
     def spinvm(number):
                                                      # Sleeps a random 1 to 10 seconds
@@ -239,7 +245,7 @@ def launchVMs(leaf,spine,socket):
                                                                     # Starts threads
     for thread in thread_list:
         thread.start()
-        time.sleep(5)
+        time.sleep(70)
 
                                                                     # This blocks the calling thread until the thread whose join() method is called is terminated.
                                                                     # From http://docs.python.org/2/library/threading.html#thread-objects
