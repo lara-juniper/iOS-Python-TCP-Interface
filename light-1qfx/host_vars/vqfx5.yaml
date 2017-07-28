@@ -1,29 +1,28 @@
 
 host:
     loopback:
-        ip: 1.1.1.5
-
+        ip: 10.10.139.5
+    device: spine
+    cluster: 2.2.2.2
 underlay:
     local:
-         asn: 5005
+        asn: 5005
     neighbors:
-      - interface: em3.100
+      - interface: em3.101
         asn: 5001
-        peer_ip: 10.10.1.1
-        local_ip: 10.10.1.2
-        vlan_id: 100
-      - interface: em3.200
+        peer_ip: 10.10.2.1
+        peer_loopback: 10.10.139.1
+        local_ip: 10.10.2.2
+        vlan_id: 101
+      - interface: em3.201
         asn: 5002
         peer_ip: 10.10.4.1
+        peer_loopback: 10.10.139.2
         local_ip: 10.10.4.2
-        vlan_id: 200
-      - interface: em3.300
+        vlan_id: 201
+      - interface: em3.301
         asn: 5003
-        peer_ip: 10.10.7.1
-        local_ip: 10.10.7.2
-        vlan_id: 300
-      - interface: em3.400
-        asn: 5004
-        peer_ip: 10.10.10.1
-        local_ip: 10.10.10.2
-        vlan_id: 400
+        peer_ip: 10.10.6.1
+        peer_loopback: 10.10.139.3
+        local_ip: 10.10.6.2
+        vlan_id: 301

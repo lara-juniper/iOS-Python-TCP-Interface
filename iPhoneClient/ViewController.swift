@@ -172,7 +172,7 @@ class ViewController: UIViewController, dataDelegate, Rotation {
             let imageName = "leafSwitchPNG.png"
             let image = UIImage(named: imageName)
             let imageView = SwitchImage(image: image!)
-            imageView.tag = i
+            imageView.tag = numberOfLeaves + i
             spineImages.append(imageView)
             
             let sections = (numberOfSpines*2 + 1)*2
@@ -198,7 +198,7 @@ class ViewController: UIViewController, dataDelegate, Rotation {
             let imageName = "leafSwitchPNG.png"
             let image = UIImage(named: imageName)
             let imageView = SwitchImage(image: image!)
-            imageView.tag = numberOfSpines + i
+            imageView.tag = i
             leafImages.append(imageView)
             
             let sections = (numberOfLeaves*2 + 1)*2
@@ -281,12 +281,14 @@ class ViewController: UIViewController, dataDelegate, Rotation {
     
     func drawEVPNLines() {
         if leafImages.count > 1 {
-            for i in 0...(leafImages.count - 2) {
-                let line: LineView = LineView(frame: view.frame)
-                line.setEndpoints(start: leafImages[i].center, end: leafImages[i+1].center)
-                view.insertSubview(line, belowSubview: spineImages[0])
-                evpnLines.append(line)
-            }
+            let line: LineView = LineView(frame: view.frame)
+            line.setEndpoints(start: leafImages[0].center, end: leafImages[1].center)
+            let line2: LineView = LineView(frame: view.frame)
+            line2.setEndpoints(start: CGPoint(x: leafImages[0].center.x, y: leafImages[1].center.y - 10), end: CGPoint(x: leafImages[1].center.x, y: leafImages[1].center.y - 10))
+            view.insertSubview(line, belowSubview: spineImages[0])
+            view.insertSubview(line2, belowSubview: spineImages[0])
+            evpnLines.append(line)
+            evpnLines.append(line2)
         }
     }
 

@@ -191,9 +191,6 @@ def launchVMs(leaf,spine,socket):
     f.close()
     create_conf()
     
-    def evpnconf():
-	subprocess.call(['sudo', 'ansible-playbook', "evpnconf.yaml"])
-	print("success-check config")
 	
     
     def spinvm(number):
@@ -230,6 +227,10 @@ def launchVMs(leaf,spine,socket):
     subprocess.call(['sudo', 'ansible-playbook', "ebgpconf.yaml"])
     print("success-check config")
 
+def evpnconf(socket):
+    subprocess.call(['sudo', 'ansible-playbook', "evpnconf.yaml"])
+    print("success-check config")
+    socket.sendall("eVPNdone:\n")
 
 
 def recv_all(sock):
@@ -278,9 +279,8 @@ def processReceivedString(socket,data):
             print "disconnect"
 
         elif splitData[0] == "eVPN":
-            #enable eVPN for real
-            time.sleep(3)
-            socket.sendall("eVPNdone:\n")
+            evpnconf(socket)
+            
 
         elif splitData[0] == "VTEP":
             #enable VTEP for real
