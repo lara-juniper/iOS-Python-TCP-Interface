@@ -21,6 +21,8 @@ class ViewController: UIViewController, dataDelegate, Rotation {
         loadingView.isHidden = true
         
         enableEVPNButton.isEnabled = false
+        enableVTEPButton.isEnabled = false
+        exitButton.isEnabled = false
         
         
         if numberOfSpines > 0 {
@@ -41,7 +43,13 @@ class ViewController: UIViewController, dataDelegate, Rotation {
         view.insertSubview(backButton, aboveSubview: enableEBGPButton)
         view.insertSubview(exitButton, aboveSubview: backButton)
         view.insertSubview(enableEVPNButton, aboveSubview: exitButton)
+        view.insertSubview(enableVTEPButton, aboveSubview: enableEVPNButton)
         
+        allButtons.append(enableEVPNButton)
+        allButtons.append(enableVTEPButton)
+        allButtons.append(enableEBGPButton)
+        allButtons.append(backButton)
+        allButtons.append(exitButton)
     }
 
     override func didReceiveMemoryWarning() {
@@ -59,6 +67,7 @@ class ViewController: UIViewController, dataDelegate, Rotation {
     var leafImages: [SwitchImage] = []
     var lines: [LineView] = []
     var evpnLines: [LineView] = []
+    var allButtons: [UIButton] = []
     
     //Outlets to the buttons
     @IBOutlet weak var enableEBGPButton: UIButton!
@@ -70,6 +79,9 @@ class ViewController: UIViewController, dataDelegate, Rotation {
     @IBOutlet weak var loadingView: UIActivityIndicatorView!
     
     @IBOutlet weak var enableEVPNButton: UIButton!
+    
+    @IBOutlet weak var enableVTEPButton: UIButton!
+    
     
     //MARK: Variables and Constants
     
@@ -115,11 +127,23 @@ class ViewController: UIViewController, dataDelegate, Rotation {
                 }
             } else if split[0] == "done" { //If the VMs have been spun up, reenable the exit button
                 exitButton.isEnabled = true
-                loadingView.stopAnimating()
-                loadingView.isHidden = true
+                stopLoading()
                 enableEVPNButton.isEnabled = true
-            } else if split[0] == "IP" {
+            } else if split[0] == "eVPNdone" {
+                stopLoading()
+                enableVTEPButton.isEnabled = true
+                exitButton.isEnabled = true
                 
+            } else if split[0] == "VTEPdone" {
+                drawEVPNLines()
+                exitButton.isEnabled = true
+                stopLoading()
+            } else if split[0] == "deleted" {
+                backButton.isEnabled = true
+                enableEBGPButton.isEnabled = false
+                enableEVPNButton.isEnabled = false
+                enableVTEPButton.isEnabled = false
+                exitButton.isEnabled = false
             }
         }
 
@@ -237,16 +261,19 @@ class ViewController: UIViewController, dataDelegate, Rotation {
     }
     
     func showIPs() {
-        let IP = "10.0.0.1"
         for spine in spineImages {
+            let IP = "10.10.139." + String(spine.tag)
             spine.IPAddress = IP
-            let label: UILabel = UILabel(frame: CGRect(x: spine.center.x, y: spine.center.y, width: 200, height: 100))
+            let IPHeight = spine.center.y - spine.frame.height - CGFloat(numberOfSpines - 2)*15
+            let label: UILabel = UILabel(frame: CGRect(x: spine.center.x, y: IPHeight, width: 200, height: 100))
             label.text = IP
             view.insertSubview(label, aboveSubview: spine)
         }
         for leaf in leafImages {
+            let IP = "10.10.139." + String(leaf.tag)
             leaf.IPAddress = IP
-            let label: UILabel = UILabel(frame: CGRect(x: leaf.center.x, y: leaf.center.y, width: 200, height: 100))
+            let IPHeight = numberOfLeaves==1 ? leaf.center.y + 30 : leaf.center.y - CGFloat(numberOfLeaves*2)
+            let label: UILabel = UILabel(frame: CGRect(x: leaf.center.x, y: IPHeight, width: 200, height: 100))
             label.text = IP
             view.insertSubview(label, aboveSubview: leaf)
         }
@@ -273,23 +300,17 @@ class ViewController: UIViewController, dataDelegate, Rotation {
         
         print("Button pressed")
         sendMessageToPython(str: "spineLeaf:\(numberOfSpines):\(numberOfLeaves)\n")
-        backButton.isEnabled = false
-        exitButton.isEnabled = false
-        loadingView.isHidden = false
-        loadingView.startAnimating()
-        enableEBGPButton.isEnabled = false
+        startLoading()
         
     }
     //Disconnect from socket when disconnected
     @IBAction func backButtonPress(_ sender: Any) {
         sendMessageToPython(str: "disconnect:\n")
     }
+    
     //Exit the app and close the VMs
     @IBAction func ExitButtonPress(_ sender: Any) {
         sendMessageToPython(str: "delete:\n")
-        backButton.isEnabled = true
-        enableEBGPButton.isEnabled = true
-        enableEVPNButton.isEnabled = false
         let allSwitches = spineImages + leafImages
         for s in allSwitches {
             s.status = .Disabled
@@ -301,7 +322,26 @@ class ViewController: UIViewController, dataDelegate, Rotation {
     
     
     @IBAction func enableEVPN(_ sender: Any) {
-        drawEVPNLines()
+        sendMessageToPython(str: "eVPN:\n")
+        startLoading()
+    }
+    
+    @IBAction func enableVTEP(_ sender: Any) {
+        sendMessageToPython(str: "VTEP:\n")
+        startLoading()
+    }
+    
+    func startLoading() {
+        loadingView.isHidden = false
+        loadingView.startAnimating()
+        for button in allButtons {
+            button.isEnabled = false
+        }
+    }
+    
+    func stopLoading() {
+        loadingView.isHidden = true
+        loadingView.stopAnimating()
     }
     
 }

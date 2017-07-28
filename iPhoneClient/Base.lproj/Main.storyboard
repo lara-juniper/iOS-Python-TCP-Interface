@@ -138,17 +138,27 @@
                                     <action selector="enableEVPN:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZqW-Yw-T2E"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YOE-Al-Un1">
+                                <rect key="frame" x="102" y="591" width="171" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Enable VTEP"/>
+                                <connections>
+                                    <action selector="enableVTEP:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fGX-2A-40N"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.85098039219999999" green="0.92952282559999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="5KM-aX-2Qx" secondAttribute="trailing" constant="59" id="0NV-HW-ok8"/>
                             <constraint firstItem="aEm-JB-KWW" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5hk-3M-qQC"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="YOE-Al-Un1" secondAttribute="bottom" constant="28" id="8WH-y5-kxa"/>
                             <constraint firstItem="gvm-pU-oUq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="9jH-gY-nzd"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="aEm-JB-KWW" secondAttribute="bottom" constant="100" id="A9S-rj-eqB"/>
                             <constraint firstItem="5KM-aX-2Qx" firstAttribute="top" secondItem="f9Q-0k-l5w" secondAttribute="bottom" constant="15" id="Aq9-3n-GNg"/>
                             <constraint firstItem="f9Q-0k-l5w" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="DEe-oN-9be"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="gvm-pU-oUq" secondAttribute="bottom" id="L8H-bL-xFU"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="5KM-aX-2Qx" secondAttribute="bottom" constant="28" id="LU1-mb-oih"/>
+                            <constraint firstItem="YOE-Al-Un1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="OVH-Nl-2o4"/>
                             <constraint firstItem="5KM-aX-2Qx" firstAttribute="leading" secondItem="KW5-2A-EKR" secondAttribute="trailing" constant="33" id="YWC-4L-nVR"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="KW5-2A-EKR" secondAttribute="bottom" constant="42" id="hf0-Fk-oGr"/>
                             <constraint firstItem="gvm-pU-oUq" firstAttribute="top" secondItem="Iz6-UC-Qf5" secondAttribute="bottom" constant="8" id="mZW-K6-CkV"/>
@@ -159,6 +169,7 @@
                         <outlet property="backButton" destination="Iz6-UC-Qf5" id="x1o-q0-hJf"/>
                         <outlet property="enableEBGPButton" destination="aEm-JB-KWW" id="7zh-Ix-XdW"/>
                         <outlet property="enableEVPNButton" destination="f9Q-0k-l5w" id="oBu-90-AOr"/>
+                        <outlet property="enableVTEPButton" destination="YOE-Al-Un1" id="T2V-es-yDr"/>
                         <outlet property="exitButton" destination="5KM-aX-2Qx" id="D02-6v-dmM"/>
                         <outlet property="loadingView" destination="KW5-2A-EKR" id="XIQ-UC-6pI"/>
                     </connections>

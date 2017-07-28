@@ -268,13 +268,24 @@ def processReceivedString(socket,data):
                 print("I'm about to launch VMs")
                 launchVMs(leaves,spines,socket)
                 print("successsss")
-                socket.sendall("done:")
+                socket.sendall("done:\n")
 
         elif splitData[0] == "delete":
             deleteVMs()
+            socket.sendall("deleted:\n")
 
         elif splitData[0] == "disconnect":
             print "disconnect"
+
+        elif splitData[0] == "eVPN":
+            #enable eVPN for real
+            time.sleep(3)
+            socket.sendall("eVPNdone:\n")
+
+        elif splitData[0] == "VTEP":
+            #enable VTEP for real
+            time.sleep(3)
+            socket.sendall("VTEPdone:\n")
 
 
 
@@ -287,14 +298,25 @@ while True:
   sc, sockname = s.accept()
   print 'We have accepted a connection from', sockname
   print 'Socket connects', sc.getsockname(), 'and', sc.getpeername()
-  message = recv_all(sc)
-  print 'The incoming sixteen-octet message says', repr(message)
+  message = recv_all(sc) #back or enable eBGP
   processReceivedString(sc, message)
+  
   splitData = message.split(':')
   if splitData[0] == "spineLeaf":
-    message = recv_all(sc)
+    message = recv_all(sc) #enableEVPN or exit
     processReceivedString(sc, message)
-  sc.close()
+    
+    splitData = message.split(':')
+    if splitData[0] == "eVPN":
+        message = recv_all(sc) #enableVTEP or exit
+        processReceivedString(sc, message)
+
+        splitData = message.split(':')
+        if splitData[0] == "VTEP":
+            message = recv_all(sc) #exit
+            processReceivedString(sc,message)
+  
+  sc.close() #close right away if message is back
   print 'Reply sent, socket closed'
 
 
