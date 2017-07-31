@@ -8,7 +8,7 @@ from threading import Timer
 import time
 
 #print("hello")
-leaf = 3
+leaf = 2
 spine = 2
 
 total= leaf+spine
@@ -50,8 +50,11 @@ def create_dict(underlay_list):
 		if r < leaf:
 			dicti={}
 			dicti['hostname']=switchlist[r]
-			dicti['loopback']="1.1.1."+str(r+1)
+			dicti['loopback']="10.10.139."+str(r+1)
 			dicti['asn']=('500'+str(r+1))
+			dicti['device']='leaf'
+			dicti['devicenumber']=str(r+1)
+			dicti['cluster']='dummy'
 			dicti['underlay']=underlay_list[p]
 			r=r+1
 			dictlist.append(dicti)
@@ -59,8 +62,11 @@ def create_dict(underlay_list):
 		else :
 			dicti2={}
 			dicti2['hostname']=switchlist[r]
-			dicti2['loopback']="1.1.1."+str(r+1)
+			dicti2['loopback']="10.10.139."+str(r+1)
 			dicti2['asn']=('500'+str(r+1))
+			dicti2['device']="spine"
+			dicti2['devicenumber']=str(r+1)
+			dicti2['cluster']=str(r-leaf+1)+"."+str(r-leaf+1)+"."+str(r-leaf+1)+"."+str(r-leaf+1)
 			dicti2['underlay']=underlay_list[p]
 			dictlist.append(dicti2)
 			r=r+1
@@ -87,6 +93,7 @@ def create_underlay():
  				#templist=[]
  				tempdict['name']="em3."+str(s+1)+"0"+str(m)
  				tempdict['id']=str(s+1)+"0"+str(m)
+				tempdict['peer_loopback']='10.'+'10.'+'139.'+str(total-m)
  				tempdict['local_ip']=localip[x]
  				tempdict['peer_ip']=peerip[x]
  				tempdict['p_asn']=('500'+str(q))
@@ -104,6 +111,7 @@ def create_underlay():
  				tempdict={}
  				tempdict['name']="em3."+str(m+1)+"0"+str(h)
  				tempdict['id']=str(m+1)+"0"+str(h)
+				tempdict['peer_loopback']='10.'+'10.'+'139.'+str(m+1)
  				tempdict['local_ip']=spineips[w]
  				tempdict['peer_ip']=peerleaf[w]
  				tempdict['p_asn']=('500'+str(m+1))
@@ -147,16 +155,46 @@ def create_conf():
     		f.close()
     		print("Configuration '%s' created..." % (parameter['hostname'] + ".yaml"))
 	print("DONE")
-
+def host_conf(hostnamelist):
+        template_file = "hostfile.j2"
+        output_directory = "provisioners"
+        print("Create Jinja2 environment...")
+        env = jinja2.Environment(loader=jinja2.FileSystemLoader(searchpath="."),
+                         trim_blocks=True,
+                         lstrip_blocks=True)
+        template = env.get_template(template_file)
+# make sure that the output directory exists
+        if not os.path.exists(output_directory):
+                os.mkdir(output_directory)
+        print("Create hostfile...")
+        f = open(os.path.join(output_directory, "ansible_inventory"), "w")
+        result = template.render(hostnamelist=hostnamelist)
+        f.write(result)
+        f.close()
+        print("Configuration '%s' created..." % ("ansible_inventory"))
+        print("DONE")
 templist2=create_underlay()			
 print(templist2)
 final_json=create_dict(templist2)
-print(final_json)
+hostnamelist=[]
+#device_count=0
+for f in final_json:
+                hostnamelist.append(f['hostname'])
+                #device_count=device_count+1
 j = json.dumps(final_json, indent=4)
 f = open('sample.json', 'w')
 print >> f, j
 f.close()
+host_conf(hostnamelist)
 create_conf()
+
+def evpnconf():
+	subprocess.call(['sudo', 'ansible-playbook', "evpnconf.yaml"])
+	print("success-check config")
+
+def vtepconf():
+        subprocess.call(['sudo', 'ansible-playbook', "vtep.yaml"])
+        print("success-check config")
 
 def spinvm(number):
                                                                 # Sleeps a random 1 to 10 seconds
@@ -169,14 +207,14 @@ thread_list = []
 for i in range(1, total+1):
                                                                 # Instantiates the thread
                                                                 # (i) does not make a sequence, so (i,)
-    t = threading.Timer(3.0,spinvm, args=(i,))              
+    t = threading.Thread(target=spinvm, args=(i,))              
     # Sticks the thread in a list so that it remains accessible
     thread_list.append(t)
 
                                                                 # Starts threads
 for thread in thread_list:
     thread.start()
-    time.sleep(10)
+    time.sleep(70)
 
                                                                 # This blocks the calling thread until the thread whose join() method is called is terminated.
                                                                 # From http://docs.python.org/2/library/threading.html#thread-objects
@@ -187,6 +225,9 @@ for thread in thread_list:
 print "Done creating vms"
 
 subprocess.call(['sudo', 'ansible-playbook', "pb.conf.all.commit.yaml"])
+evpnconf()
+vtepconf()
+
 print("success-check config")
 
 
