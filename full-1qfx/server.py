@@ -80,6 +80,7 @@ def launchVMs(leaf,spine,socket):
                 dicti['loopback']="10.10.139."+str(r+1)
                 dicti['asn']=('500'+str(r+1))
                 dicti['device']='leaf'
+		dicti['devicenumber']=str(r+1)
                 dicti['cluster']='dummy'
                 dicti['underlay']=underlay_list[p]
                 r=r+1
@@ -91,6 +92,7 @@ def launchVMs(leaf,spine,socket):
                 dicti2['loopback']="10.10.139."+str(r+1)
                 dicti2['asn']=('500'+str(r+1))
                 dicti2['device']="spine"
+		dicti2['devicenumber']=str(r+1)
                 dicti2['cluster']=str(r-leaf+1)+"."+str(r-leaf+1)+"."+str(r-leaf+1)+"."+str(r-leaf+1)
                 dicti2['underlay']=underlay_list[p]
                 dictlist.append(dicti2)
@@ -214,7 +216,7 @@ def launchVMs(leaf,spine,socket):
                                                                     # Starts threads
     for thread in thread_list:
         thread.start()
-        time.sleep(5)
+        time.sleep(70)
 
                                                                     # This blocks the calling thread until the thread whose join() method is called is terminated.
                                                                     # From http://docs.python.org/2/library/threading.html#thread-objects
