@@ -1,5 +1,3 @@
-# <stagnant file--to be created dynamically later>
-
 vqfx1 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2200 ansible_ssh_user='vagrant' ansible_ssh_private_key_file='/Users/sjmurthy/.vagrant.d/insecure_private_key'
 vqfx2 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2202 ansible_ssh_user='vagrant' ansible_ssh_private_key_file='/Users/sjmurthy/.vagrant.d/insecure_private_key'
 vqfx3 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2204 ansible_ssh_user='vagrant' ansible_ssh_private_key_file='/Users/sjmurthy/.vagrant.d/insecure_private_key'
@@ -11,13 +9,8 @@ vqfx8 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2206 ansible_ssh_user='vagrant
 #vqfx1 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2200 ansible_ssh_user='vagrant' ansible_ssh_private_key_file='/Users/sjmurthy/.vagrant.d/insecure_private_key'
 #vqfx2 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2204 ansible_ssh_user='vagrant' ansible_ssh_private_key_file='/Users/sjmurthy/.vagrant.d/insecure_private_key'
 
+
 [vqfx10k]
-vqfx1
-vqfx2
-vqfx3
-vqfx4
-
-
 [vqfxfull10k]
 vqfx1
 vqfx2
