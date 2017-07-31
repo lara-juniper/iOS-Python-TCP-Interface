@@ -79,8 +79,8 @@ def launchVMs(leaf,spine,socket):
                 dicti['hostname']=switchlist[r]
                 dicti['loopback']="10.10.139."+str(r+1)
                 dicti['asn']=('500'+str(r+1))
-		dicti['device']='leaf'
-		dicti['cluster']='dummy'
+                dicti['device']='leaf'
+                dicti['cluster']='dummy'
                 dicti['underlay']=underlay_list[p]
                 r=r+1
                 dictlist.append(dicti)
@@ -91,8 +91,8 @@ def launchVMs(leaf,spine,socket):
                 dicti2['loopback']="10.10.139."+str(r+1)
                 dicti2['asn']=('500'+str(r+1))
                 dicti2['device']="spine"
-		dicti2['cluster']=str(r-leaf+1)+"."+str(r-leaf+1)+"."+str(r-leaf+1)+"."+str(r-leaf+1)
-		dicti2['underlay']=underlay_list[p]
+                dicti2['cluster']=str(r-leaf+1)+"."+str(r-leaf+1)+"."+str(r-leaf+1)+"."+str(r-leaf+1)
+                dicti2['underlay']=underlay_list[p]
                 dictlist.append(dicti2)
                 r=r+1
         return(dictlist)
@@ -118,7 +118,7 @@ def launchVMs(leaf,spine,socket):
                     #templist=[]
                     tempdict['name']="em3."+str(s+1)+"0"+str(m)
                     tempdict['id']=str(s+1)+"0"+str(m)
-		    tempdict['peer_loopback']='10.'+'10.'+'139.'+str(total-m)
+                    tempdict['peer_loopback']='10.'+'10.'+'139.'+str(total-m)
                     tempdict['local_ip']=localip[x]
                     tempdict['peer_ip']=peerip[x]
                     tempdict['p_asn']=('500'+str(q))
@@ -136,7 +136,7 @@ def launchVMs(leaf,spine,socket):
                     tempdict={}
                     tempdict['name']="em3."+str(m+1)+"0"+str(h)
                     tempdict['id']=str(m+1)+"0"+str(h)
-		    tempdict['peer_loopback']='10.'+'10.'+'139.'+str(m+1)
+                    tempdict['peer_loopback']='10.'+'10.'+'139.'+str(m+1)
                     tempdict['local_ip']=spineips[w]
                     tempdict['peer_ip']=peerleaf[w]
                     tempdict['p_asn']=('500'+str(m+1))
@@ -180,42 +180,18 @@ def launchVMs(leaf,spine,socket):
                 f.close()
                 print("Configuration '%s' created..." % (parameter['hostname'] + ".yaml"))
         print("DONE")
-    
-    def host_conf(hostnamelist):
-        template_file = "hostfile.j2"
-        output_directory = "provisioners"
-        print("Create Jinja2 environment...")
-        env = jinja2.Environment(loader=jinja2.FileSystemLoader(searchpath="."),
-                         trim_blocks=True,
-                         lstrip_blocks=True)
-        template = env.get_template(template_file)
-        # make sure that the output directory exists
-        if not os.path.exists(output_directory):
-                os.mkdir(output_directory)
-        print("Create hostfile...")
-        f = open(os.path.join(output_directory, "ansible_inventory"), "w")
-        result = template.render(hostnamelist=hostnamelist)
-        f.write(result)
-        f.close()
-        print("Configuration '%s' created..." % ("ansible_inventory"))
-        print("DONE")
-
-
-
 
     templist2=create_underlay()         
     print(templist2)
     final_json=create_dict(templist2)
-    for f in final_json:
-        hostnamelist.append(f['hostname'])
     print(final_json)
     j = json.dumps(final_json, indent=4)
     f = open('sample.json', 'w')
     print >> f, j
     f.close()
     create_conf()
-    host_conf(hostnamelist)
-	
+    
+    
     
     def spinvm(number):
                                                      # Sleeps a random 1 to 10 seconds
@@ -251,16 +227,15 @@ def launchVMs(leaf,spine,socket):
     subprocess.call(['sudo', 'ansible-playbook', "ebgpconf.yaml"])
     print("success-check config")
 
-def vtepconf(socket):
-    subprocess.call(['sudo', 'ansible-playbook', "vtep.yaml"])
-    print("success-check config")
-    socket.sendall("VTEPdone:\n")
-
-
 def evpnconf(socket):
     subprocess.call(['sudo', 'ansible-playbook', "evpnconf.yaml"])
     print("success-check config")
     socket.sendall("eVPNdone:\n")
+
+def vtepconf(socket):
+    subprocess.call(['sudo', 'ansible-playbook', "vtep.yaml"])
+    print("success-check config")
+    socket.sendall("VTEPdone:\n")
 
 
 def recv_all(sock):
