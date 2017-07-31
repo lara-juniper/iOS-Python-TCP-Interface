@@ -180,49 +180,42 @@ def launchVMs(leaf,spine,socket):
                 f.close()
                 print("Configuration '%s' created..." % (parameter['hostname'] + ".yaml"))
         print("DONE")
+    
     def host_conf(hostnamelist):
- 	template_file = "hostfile.j2"
-	output_directory = "provisioners"
-	print("Create Jinja2 environment...")
-	env = jinja2.Environment(loader=jinja2.FileSystemLoader(searchpath="."),
+        template_file = "hostfile.j2"
+        output_directory = "provisioners"
+        print("Create Jinja2 environment...")
+        env = jinja2.Environment(loader=jinja2.FileSystemLoader(searchpath="."),
                          trim_blocks=True,
                          lstrip_blocks=True)
-	template = env.get_template(template_file)
-	# make sure that the output directory exists
-	if not os.path.exists(output_directory):
-    		os.mkdir(output_directory)
-	print("Create hostfile...")
-	f = open(os.path.join(output_directory, "ansible_inventory"), "w")
-	result = template.render(hostnamelist=hostnamelist)
-	f.write(result)
-	f.close()
-	print("Configuration '%s' created..." % ("ansible_inventory"))
-	print("DONE")
+        template = env.get_template(template_file)
+        # make sure that the output directory exists
+        if not os.path.exists(output_directory):
+                os.mkdir(output_directory)
+        print("Create hostfile...")
+        f = open(os.path.join(output_directory, "ansible_inventory"), "w")
+        result = template.render(hostnamelist=hostnamelist)
+        f.write(result)
+        f.close()
+        print("Configuration '%s' created..." % ("ansible_inventory"))
+        print("DONE")
+
+
+
+
     templist2=create_underlay()         
     print(templist2)
     final_json=create_dict(templist2)
-    hostnamelist=[]
     for f in final_json:
-    	hostnamelist.append(f['hostname'])
-         
+        hostnamelist.append(f['hostname'])
     print(final_json)
-    hostnamelist=[]
-    #device_count=0
-    for f in final_json:
-	hostnamelist.append(f['hostname'])
     j = json.dumps(final_json, indent=4)
     f = open('sample.json', 'w')
     print >> f, j
     f.close()
     create_conf()
     host_conf(hostnamelist)
-    
-    def evpnconf():
-	subprocess.call(['sudo', 'ansible-playbook', "evpnconf.yaml"])
-	print("success-check config")
-    def vtepconf():
-        subprocess.call(['sudo', 'ansible-playbook', "vtep.yaml"])
-        print("success-check config")	
+	
     
     def spinvm(number):
                                                      # Sleeps a random 1 to 10 seconds
@@ -245,7 +238,7 @@ def launchVMs(leaf,spine,socket):
                                                                     # Starts threads
     for thread in thread_list:
         thread.start()
-        time.sleep(70)
+        time.sleep(5)
 
                                                                     # This blocks the calling thread until the thread whose join() method is called is terminated.
                                                                     # From http://docs.python.org/2/library/threading.html#thread-objects
@@ -257,9 +250,11 @@ def launchVMs(leaf,spine,socket):
 
     subprocess.call(['sudo', 'ansible-playbook', "ebgpconf.yaml"])
     print("success-check config")
-def vtepconf():
+
+def vtepconf(socket):
     subprocess.call(['sudo', 'ansible-playbook', "vtep.yaml"])
     print("success-check config")
+    socket.sendall("VTEPdone:\n")
 
 
 def evpnconf(socket):
@@ -318,9 +313,7 @@ def processReceivedString(socket,data):
             
 
         elif splitData[0] == "VTEP":
-            #enable VTEP for real
-            time.sleep(3)
-            socket.sendall("VTEPdone:\n")
+            vtepconf(socket)
 
 
 
