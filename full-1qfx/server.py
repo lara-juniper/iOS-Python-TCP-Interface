@@ -182,6 +182,7 @@ def launchVMs(leaf,spine,socket):
                 f.close()
                 print("Configuration '%s' created..." % (parameter['hostname'] + ".yaml"))
         print("DONE")
+        
     def host_conf(hostnamelist):
         template_file = "hostfile.j2"
         output_directory = "provisioners"
