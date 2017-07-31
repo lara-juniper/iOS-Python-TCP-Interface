@@ -1,0 +1,24 @@
+vqfx1 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2222 ansible_ssh_user='vagrant' ansible_ssh_private_key_file='/Users/sjmurthy/.vagrant.d/insecure_private_key'
+vqfx2 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2200 ansible_ssh_user='vagrant' ansible_ssh_private_key_file='/Users/sjmurthy/.vagrant.d/insecure_private_key'
+vqfx3 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2201 ansible_ssh_user='vagrant' ansible_ssh_private_key_file='/Users/sjmurthy/.vagrant.d/insecure_private_key'
+vqfx4 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2202 ansible_ssh_user='vagrant' ansible_ssh_private_key_file='/Users/sjmurthy/.vagrant.d/insecure_private_key'
+vqfx5 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2203 ansible_ssh_user='vagrant' ansible_ssh_private_key_file='/Users/sjmurthy/.vagrant.d/insecure_private_key'
+vqfx6 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2204 ansible_ssh_user='vagrant' ansible_ssh_private_key_file='/Users/sjmurthy/.vagrant.d/insecure_private_key'
+vqfx7 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2205 ansible_ssh_user='vagrant' ansible_ssh_private_key_file='/Users/sjmurthy/.vagrant.d/insecure_private_key'
+vqfx8 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2206 ansible_ssh_user='vagrant' ansible_ssh_private_key_file='/Users/sjmurthy/.vagrant.d/insecure_private_key'
+vqfx9 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2207 ansible_ssh_user='vagrant' ansible_ssh_private_key_file='/Users/sjmurthy/.vagrant.d/insecure_private_key'
+vqfx10 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2208 ansible_ssh_user='vagrant' ansible_ssh_private_key_file='/Users/sjmurthy/.vagrant.d/insecure_private_key'
+
+
+[vqfx10k]
+{% for device in hostname %}
+vqfx{{ device.devicenumber }}
+{% endfor %}
+[vqfxfull10k]
+vqfx1
+vqfx2
+
+[all:children]
+vqfx10k
+vqfxfull10k
+
