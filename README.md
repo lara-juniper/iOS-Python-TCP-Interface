@@ -2,7 +2,7 @@
 Getting an iOS application to communicate to a Python TCP server, which then spins up virtual machines.
 installation Guide
 
-Requirements
+Requirements:
 
 VirtualBox, version 5.0.10 minimum
 Vagrant, version 1.7 minimum
@@ -74,6 +74,3 @@ apt-get install ansible
 
 ansible-galaxy install Juniper.junos
 
-How to install Ansible for Windows
-
-http://www.azavea.com/blogs/labs/2014/10/running-vagrant-with-ansible-provisioning-on-windows/
