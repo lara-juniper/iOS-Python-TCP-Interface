@@ -11,8 +11,8 @@ vqfx8 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2206 ansible_ssh_user='vagrant
 
 
 [vqfx10k]
-{% for device in hostname %}
-vqfx{{ device.devicenumber }}
+{% for device in hostnamelist %}
+{{ device }}
 {% endfor %}
 [vqfxfull10k]
 vqfx1
