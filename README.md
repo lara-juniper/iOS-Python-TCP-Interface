@@ -58,7 +58,7 @@ For now, Boxes are not yet available publicly, please contact your Juniper SE to
 
 3.Install Ansible
 
-How to install Ansible on MacOS:Commands:
+----->How to install Ansible on MacOS:Commands:
 
 sudo easy_install pip
 
@@ -68,7 +68,7 @@ sudo ansible-galaxy install Juniper.junos
 
 sudo pip install junos-eznc
 
-How to install Ansible on Ubuntu/Linux:commands:
+---->How to install Ansible on Ubuntu/Linux:commands:
 
 apt-get install ansible
 
