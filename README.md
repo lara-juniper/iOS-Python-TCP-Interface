@@ -2,6 +2,9 @@
 Getting an iOS application to communicate to a Python TCP server, which then spins up virtual machines.
 installation Guide
 
+Run the server.py or any other program in the repository with sudo privilages.
+
+
 Requirements:
 
 VirtualBox, version 5.0.10 minimum
