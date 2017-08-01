@@ -55,6 +55,7 @@ sudo easy_install pip
 sudo pip install ansible
 sudo ansible-galaxy install Juniper.junos
 sudo pip install junos-eznc
+
 How to install Ansible on Ubuntu/Linux
 
 apt-get install ansible
