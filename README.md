@@ -56,7 +56,7 @@ vagrant box add juniper/vqfx10k-re /{path to box file}/vqfx10k-re-virtualbox.box
 
 For now, Boxes are not yet available publicly, please contact your Juniper SE to add for access
 
-3. (optional) Install Ansible
+3.Install Ansible
 
 How to install Ansible on MacOS:Commands:
 
