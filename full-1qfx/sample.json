@@ -1,0 +1,64 @@
+[
+    {
+        "cluster": "dummy", 
+        "hostname": "vqfx1", 
+        "loopback": "10.10.139.1", 
+        "devicenumber": "1", 
+        "device": "leaf", 
+        "underlay": [
+            {
+                "peer_loopback": "10.10.139.3", 
+                "local_ip": "10.10.1.1", 
+                "p_asn": "5003", 
+                "peer_ip": "10.10.1.2", 
+                "id": "100", 
+                "name": "em3.100"
+            }
+        ], 
+        "asn": "5001"
+    }, 
+    {
+        "cluster": "dummy", 
+        "hostname": "vqfx2", 
+        "loopback": "10.10.139.2", 
+        "devicenumber": "2", 
+        "device": "leaf", 
+        "underlay": [
+            {
+                "peer_loopback": "10.10.139.3", 
+                "local_ip": "10.10.2.1", 
+                "p_asn": "5003", 
+                "peer_ip": "10.10.2.2", 
+                "id": "200", 
+                "name": "em3.200"
+            }
+        ], 
+        "asn": "5002"
+    }, 
+    {
+        "cluster": "1.1.1.1", 
+        "hostname": "vqfx3", 
+        "loopback": "10.10.139.3", 
+        "devicenumber": "3", 
+        "device": "spine", 
+        "underlay": [
+            {
+                "peer_loopback": "10.10.139.1", 
+                "local_ip": "10.10.1.2", 
+                "p_asn": "5001", 
+                "peer_ip": "10.10.1.1", 
+                "id": "100", 
+                "name": "em3.100"
+            }, 
+            {
+                "peer_loopback": "10.10.139.2", 
+                "local_ip": "10.10.2.2", 
+                "p_asn": "5002", 
+                "peer_ip": "10.10.2.1", 
+                "id": "200", 
+                "name": "em3.200"
+            }
+        ], 
+        "asn": "5003"
+    }
+]
