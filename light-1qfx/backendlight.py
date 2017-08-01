@@ -53,6 +53,10 @@ def create_dict(underlay_list):
 			dicti['loopback']="1.1.1."+str(r+1)
 			dicti['asn']=('500'+str(r+1))
 			dicti['underlay']=underlay_list[p]
+			dicti['device']='leaf'
+			dicti['devicenumber']=str(r+1)
+			dicti['cluster']='dummy'
+			dicti['underlay']=underlay_list[p]			
 			r=r+1
 			dictlist.append(dicti)
 			print(r)
@@ -61,6 +65,10 @@ def create_dict(underlay_list):
 			dicti2['hostname']=switchlist[r]
 			dicti2['loopback']="1.1.1."+str(r+1)
 			dicti2['asn']=('500'+str(r+1))
+			dicti2['device']="spine"
+			dicti2['devicenumber']=str(r+1)
+			dicti2['cluster']=str(r-leaf+1)+"."+str(r-leaf+1)+"."+str(r-leaf+1)+"."+str(r-leaf+1)
+			dicti2['underlay']=underlay_list[p]
 			dicti2['underlay']=underlay_list[p]
 			dictlist.append(dicti2)
 			r=r+1
@@ -87,6 +95,7 @@ def create_underlay():
  				#templist=[]
  				tempdict['name']="em3."+str(s+1)+"0"+str(m)
  				tempdict['id']=str(s+1)+"0"+str(m)
+				tempdict['peer_loopback']='10.'+'10.'+'139.'+str(total-m)
  				tempdict['local_ip']=localip[x]
  				tempdict['peer_ip']=peerip[x]
  				tempdict['p_asn']=('500'+str(q))
@@ -103,6 +112,7 @@ def create_underlay():
  			for m in range(0,leaf):
  				tempdict={}
  				tempdict['name']="em3."+str(m+1)+"0"+str(h)
+				tempdict['peer_loopback']='10.'+'10.'+'139.'+str(m+1)
  				tempdict['id']=str(m+1)+"0"+str(h)
  				tempdict['local_ip']=spineips[w]
  				tempdict['peer_ip']=peerleaf[w]
@@ -147,16 +157,45 @@ def create_conf():
     		f.close()
     		print("Configuration '%s' created..." % (parameter['hostname'] + ".yaml"))
 	print("DONE")
-
+def host_conf(hostnamelist):
+        template_file = "hostfile.j2"
+        output_directory = "provisioners"
+        print("Create Jinja2 environment...")
+        env = jinja2.Environment(loader=jinja2.FileSystemLoader(searchpath="."),
+                         trim_blocks=True,
+                         lstrip_blocks=True)
+        template = env.get_template(template_file)
+# make sure that the output directory exists
+        if not os.path.exists(output_directory):
+                os.mkdir(output_directory)
+        print("Create hostfile...")
+        f = open(os.path.join(output_directory, "ansible_inventory"), "w")
+        result = template.render(hostnamelist=hostnamelist)
+        f.write(result)
+        f.close()
+        print("Configuration '%s' created..." % ("ansible_inventory"))
+        print("DONE")
+	
 templist2=create_underlay()			
 print(templist2)
 final_json=create_dict(templist2)
+hostnamelist=[]
+#device_count=0
+for f in final_json:
+                hostnamelist.append(f['hostname'])
+                #device_count=device_count+1
 print(final_json)
 j = json.dumps(final_json, indent=4)
 f = open('sample.json', 'w')
 print >> f, j
 f.close()
+host_conf(hostnamelist)
 create_conf()
+
+def evpnconf():
+	subprocess.call(['sudo', 'ansible-playbook', "evpnconf.yaml"])
+	print("success-check config")
+
 
 def spinvm(number):
                                                                 # Sleeps a random 1 to 10 seconds
@@ -187,7 +226,9 @@ for thread in thread_list:
 print "Done creating vms"
 
 subprocess.call(['sudo', 'ansible-playbook', "pb.conf.all.commit.yaml"])
-print("success-check config")
+print("success-check config-ebgp")
+evpnconf()
+
 
 
 
