@@ -12,6 +12,7 @@ For Linux and MacOS, some examples require:
 Ansible
 Junos module for Ansible
 Ansible is used to provision Junos VM automatically
+
 1. Download and Install Vagrant and VirtualBox
 
 Vagrant
@@ -27,17 +28,24 @@ for ubuntu :
 
 wget https://releases.hashicorp.com/vagrant/1.8.1/vagrant_1.8.1_x86_64.deb
 sudo dpkg -i vagrant_1.8.1_x86_64.deb
+
 2. Install vqfx Box file locally
 
-Because vqfx10k boxes are not available on Vagrant Cloud] yet, you'll have to install them manually first.
+Because vqfx10k boxes are not available on Vagrant Cloud yet, you'll have to install them manually first.
 
 You can install a box with the command
 
 vagrant box add {box name} {box path}
 Both vqfx10k-re and vqfx10k-pfe need to be installed
 
+FOr full package:
+
+vagrant box add juniper/vqfx10k-refull /{path to box file}/vqfx10k-re-virtualbox.box
+vagrant box add juniper/vqfx10k-pfefull /{path to box file}/vqfx10k-pfe1-virtualbox.box  
+
+For light package:
 vagrant box add juniper/vqfx10k-re /{path to box file}/vqfx10k-re-virtualbox.box
-vagrant box add juniper/vqfx10k-pfe /{path to box file}/vqfx10k-pfe1-virtualbox.box  
+
 For now, Boxes are not yet available publicly, please contact your Juniper SE to add for access
 3. (optional) Install Ansible
 
