@@ -52,14 +52,19 @@ For now, Boxes are not yet available publicly, please contact your Juniper SE to
 How to install Ansible on MacOS
 
 sudo easy_install pip
+
 sudo pip install ansible
+
 sudo ansible-galaxy install Juniper.junos
+
 sudo pip install junos-eznc
 
 How to install Ansible on Ubuntu/Linux
 
 apt-get install ansible
+
 ansible-galaxy install Juniper.junos
+
 How to install Ansible for Windows
 
 http://www.azavea.com/blogs/labs/2014/10/running-vagrant-with-ansible-provisioning-on-windows/
