@@ -40,17 +40,17 @@ You can install a box with the command
 
 vagrant box add {box name} {box path}
 
-Both vqfx10k-refull and vqfx10k-pfefull need to be installed for full package.
+Both vqfx10k-re and vqfx10k-pfe  need to be installed for full package.
 
 
-FOr full package:
+FOr full package:commands:
 
 vagrant box add juniper/vqfx10k-refull /{path to box file}/vqfx10k-re-virtualbox.box
 
 vagrant box add juniper/vqfx10k-pfefull /{path to box file}/vqfx10k-pfe1-virtualbox.box  
 
 
-For light package:
+For light package:commands:
 
 vagrant box add juniper/vqfx10k-re /{path to box file}/vqfx10k-re-virtualbox.box
 
