@@ -39,17 +39,23 @@ http://www.juniper.net/support/downloads/?p=vqfxeval#sw
 You can install a box with the command
 
 vagrant box add {box name} {box path}
+
 Both vqfx10k-refull and vqfx10k-pfefull need to be installed for full package.
+
 
 FOr full package:
 
 vagrant box add juniper/vqfx10k-refull /{path to box file}/vqfx10k-re-virtualbox.box
+
 vagrant box add juniper/vqfx10k-pfefull /{path to box file}/vqfx10k-pfe1-virtualbox.box  
 
+
 For light package:
+
 vagrant box add juniper/vqfx10k-re /{path to box file}/vqfx10k-re-virtualbox.box
 
 For now, Boxes are not yet available publicly, please contact your Juniper SE to add for access
+
 3. (optional) Install Ansible
 
 How to install Ansible on MacOS:Commands:
