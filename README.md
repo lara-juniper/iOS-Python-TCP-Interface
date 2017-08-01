@@ -33,10 +33,13 @@ sudo dpkg -i vagrant_1.8.1_x86_64.deb
 
 Because vqfx10k boxes are not available on Vagrant Cloud yet, you'll have to install them manually first.
 
+For VQFX:
+http://www.juniper.net/support/downloads/?p=vqfxeval#sw
+
 You can install a box with the command
 
 vagrant box add {box name} {box path}
-Both vqfx10k-re and vqfx10k-pfe need to be installed
+Both vqfx10k-refull and vqfx10k-pfefull need to be installed for full package.
 
 FOr full package:
 
@@ -49,7 +52,7 @@ vagrant box add juniper/vqfx10k-re /{path to box file}/vqfx10k-re-virtualbox.box
 For now, Boxes are not yet available publicly, please contact your Juniper SE to add for access
 3. (optional) Install Ansible
 
-How to install Ansible on MacOS
+How to install Ansible on MacOS:Commands:
 
 sudo easy_install pip
 
@@ -59,7 +62,7 @@ sudo ansible-galaxy install Juniper.junos
 
 sudo pip install junos-eznc
 
-How to install Ansible on Ubuntu/Linux
+How to install Ansible on Ubuntu/Linux:commands:
 
 apt-get install ansible
 
