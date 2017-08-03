@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		AF452B741EFDAB4B00EED3BF /* ConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF452B731EFDAB4B00EED3BF /* ConfigurationViewController.swift */; };
 		AF4E6FB01EF2066B0037AA4F /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4E6FAF1EF2066B0037AA4F /* Switch.swift */; };
-		AFA154991F0440C1007ABFA7 /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA154981F0440C1007ABFA7 /* LineView.swift */; };
+		AFA4EA421F33AC2400A1AFF2 /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA4EA411F33AC2400A1AFF2 /* LineView.swift */; };
 		AFB635451EE764FC003189F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB635441EE764FC003189F0 /* AppDelegate.swift */; };
 		AFB635471EE764FC003189F0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB635461EE764FC003189F0 /* ViewController.swift */; };
 		AFB6354A1EE764FC003189F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFB635481EE764FC003189F0 /* Main.storyboard */; };
@@ -40,7 +40,7 @@
 /* Begin PBXFileReference section */
 		AF452B731EFDAB4B00EED3BF /* ConfigurationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationViewController.swift; sourceTree = "<group>"; };
 		AF4E6FAF1EF2066B0037AA4F /* Switch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Switch.swift; sourceTree = "<group>"; };
-		AFA154981F0440C1007ABFA7 /* LineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LineView.swift; path = ../../dynamicImageResizing/dynamicImageResizing/LineView.swift; sourceTree = "<group>"; };
+		AFA4EA411F33AC2400A1AFF2 /* LineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineView.swift; sourceTree = "<group>"; };
 		AFB635411EE764FC003189F0 /* iPhoneClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iPhoneClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFB635441EE764FC003189F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AFB635461EE764FC003189F0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -107,7 +107,7 @@
 			children = (
 				AFB635441EE764FC003189F0 /* AppDelegate.swift */,
 				AFB635461EE764FC003189F0 /* ViewController.swift */,
-				AFA154981F0440C1007ABFA7 /* LineView.swift */,
+				AFA4EA411F33AC2400A1AFF2 /* LineView.swift */,
 				AF452B731EFDAB4B00EED3BF /* ConfigurationViewController.swift */,
 				AFB635721EE775D0003189F0 /* Connection.swift */,
 				AFB635481EE764FC003189F0 /* Main.storyboard */,
@@ -274,9 +274,9 @@
 			files = (
 				AFB635471EE764FC003189F0 /* ViewController.swift in Sources */,
 				AF4E6FB01EF2066B0037AA4F /* Switch.swift in Sources */,
-				AFA154991F0440C1007ABFA7 /* LineView.swift in Sources */,
 				AFB635731EE775D0003189F0 /* Connection.swift in Sources */,
 				AF452B741EFDAB4B00EED3BF /* ConfigurationViewController.swift in Sources */,
+				AFA4EA421F33AC2400A1AFF2 /* LineView.swift in Sources */,
 				AFB635451EE764FC003189F0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
