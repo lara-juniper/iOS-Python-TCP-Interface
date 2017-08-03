@@ -4,4 +4,4 @@ light-1qfx/host_vars/*
 .DS_Store
 light-1qfx/pb.conf.all.commit.retry
 light-1qfx/sample.json
-
+full-1qfx/.vagrant/machines/*
