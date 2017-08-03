@@ -74,7 +74,7 @@ class ConfigurationViewController: UIViewController, UIPickerViewDataSource, UIP
             return label!
         default:
             label?.text = String(spineNumbers[row])
-            label?.font = UIFont(name:"Times New Roman", size:30)
+            label?.font = UIFont(name:"Times New Roman", size:35)
             return label!
         }
         

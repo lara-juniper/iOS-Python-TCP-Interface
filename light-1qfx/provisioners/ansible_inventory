@@ -14,6 +14,7 @@ vqfx10 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2208 ansible_ssh_user='vagran
 vqfx1
 vqfx2
 vqfx3
+vqfx4
 [vqfxfull10k]
 vqfx1
 vqfx2
