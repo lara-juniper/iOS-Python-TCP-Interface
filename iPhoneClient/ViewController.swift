@@ -50,7 +50,15 @@ class ViewController: UIViewController, dataDelegate, Rotation {
         allButtons.append(enableEBGPButton)
         allButtons.append(backButton)
         allButtons.append(exitButton)
+        
+        if UIScreen.main.bounds.size.width < 700 {
+            for button in allButtons {
+                button.titleLabel!.font = UIFont(name: "Times New Roman", size: 20)
+            }
+        }
     }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -70,6 +70,7 @@
                     </view>
                     <connections>
                         <outlet property="configureButton" destination="p3A-hx-xnc" id="fN0-UW-0D0"/>
+                        <outlet property="spineAndLeafLabel" destination="U6T-ff-f62" id="Dvp-FI-R0L"/>
                         <outlet property="spinePicker" destination="BSj-9c-1qt" id="uMp-cS-ony"/>
                     </connections>
                 </viewController>

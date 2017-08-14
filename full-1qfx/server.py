@@ -17,7 +17,7 @@ from subprocess import check_output
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-HOST = '172.24.83.118'
+HOST = '127.0.0.1'
 PORT = 80
 MAX = 1024
 
