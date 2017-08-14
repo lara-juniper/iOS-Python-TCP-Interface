@@ -50,6 +50,12 @@ class ViewController: UIViewController, dataDelegate, Rotation {
         allButtons.append(enableEBGPButton)
         allButtons.append(backButton)
         allButtons.append(exitButton)
+        
+        if UIScreen.main.bounds.size.width < 700 {
+            for button in allButtons {
+                button.titleLabel!.font =  UIFont(name: "Times New Roman", size: 20)
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -262,20 +268,30 @@ class ViewController: UIViewController, dataDelegate, Rotation {
     
     func showIPs() {
         for spine in spineImages {
+            let screenSize: CGRect = UIScreen.main.bounds
+            let screenWidth = screenSize.width
             let IP = "10.10.139." + String(spine.tag)
             spine.IPAddress = IP
-            let IPHeight = spine.center.y - spine.frame.height - CGFloat(numberOfSpines - 2)*15
-            let label: UILabel = UILabel(frame: CGRect(x: spine.center.x, y: IPHeight, width: 200, height: 100))
+            let IPHeight = Int(Double(screenWidth)/3) - 50
+            let label: UILabel = UILabel(frame: CGRect(x: Int(spine.center.x), y: IPHeight, width: 200, height: 100))
             label.text = IP
             view.insertSubview(label, aboveSubview: spine)
+            if UIScreen.main.bounds.size.width < 700 {
+                label.font = label.font.withSize(12)
+            }
         }
         for leaf in leafImages {
+            let screenSize: CGRect = UIScreen.main.bounds
+            let screenHeight = screenSize.height
             let IP = "10.10.139." + String(leaf.tag)
             leaf.IPAddress = IP
-            let IPHeight = numberOfLeaves==1 ? leaf.center.y + 30 : leaf.center.y - CGFloat(numberOfLeaves*2)
-            let label: UILabel = UILabel(frame: CGRect(x: leaf.center.x, y: IPHeight, width: 200, height: 100))
+            let IPHeight = Int(2*Double(screenHeight)/3)
+            let label: UILabel = UILabel(frame: CGRect(x: Int(leaf.center.x), y: IPHeight, width: 200, height: 100))
             label.text = IP
             view.insertSubview(label, aboveSubview: leaf)
+            if UIScreen.main.bounds.size.width < 700 {
+                label.font = label.font.withSize(12)
+            }
         }
     }
     

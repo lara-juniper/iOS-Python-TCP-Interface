@@ -70,6 +70,7 @@
                     </view>
                     <connections>
                         <outlet property="configureButton" destination="p3A-hx-xnc" id="fN0-UW-0D0"/>
+                        <outlet property="spineAndLeafLabel" destination="U6T-ff-f62" id="eth-fY-Nag"/>
                         <outlet property="spinePicker" destination="BSj-9c-1qt" id="uMp-cS-ony"/>
                     </connections>
                 </viewController>
@@ -111,7 +112,7 @@
                                     <constraint firstAttribute="height" constant="30" id="hlF-cQ-HMJ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="Enable eBGP"/>
+                                <state key="normal" title="Enable EBGP"/>
                                 <connections>
                                     <action selector="sendMessage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hsv-Lp-CFk"/>
                                 </connections>
@@ -131,9 +132,9 @@
                                 <rect key="frame" x="198" y="605" width="20" height="20"/>
                             </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f9Q-0k-l5w">
-                                <rect key="frame" x="187" y="528" width="172" height="48"/>
+                                <rect key="frame" x="185" y="528" width="174" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="Enable eVPN"/>
+                                <state key="normal" title="Enable EVPN"/>
                                 <connections>
                                     <action selector="enableEVPN:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZqW-Yw-T2E"/>
                                 </connections>

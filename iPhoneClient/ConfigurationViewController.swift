@@ -19,6 +19,7 @@ class ConfigurationViewController: UIViewController, UIPickerViewDataSource, UIP
     @IBOutlet weak var configureButton: UIButton!
     @IBOutlet weak var spinePicker: UIPickerView!
     
+    @IBOutlet weak var spineAndLeafLabel: UILabel!
 
     
     //MARK: Variables
@@ -33,6 +34,11 @@ class ConfigurationViewController: UIViewController, UIPickerViewDataSource, UIP
         self.spinePicker.dataSource = self
         
         view.insertSubview(configureButton, aboveSubview: spinePicker)
+        
+        if UIScreen.main.bounds.size.width < 700 {
+            spineAndLeafLabel.font = spineAndLeafLabel.font.withSize(16)
+            configureButton.titleLabel!.font =  UIFont(name: "Times New Roman", size: 20)
+        }
         
         
     }
@@ -70,11 +76,19 @@ class ConfigurationViewController: UIViewController, UIPickerViewDataSource, UIP
         case 0:
             
             label?.text = String(spineNumbers[row])
-            label?.font = UIFont(name:"Times New Roman", size:35)
+            if UIScreen.main.bounds.size.width < 700 {
+                label?.font = UIFont(name:"Times New Roman", size:16)
+            } else {
+                label?.font = UIFont(name:"Times New Roman", size:35)
+            }
             return label!
         default:
             label?.text = String(spineNumbers[row])
-            label?.font = UIFont(name:"Times New Roman", size:35)
+            if UIScreen.main.bounds.size.width < 700 {
+                label?.font = UIFont(name:"Times New Roman", size:16)
+            } else {
+                label?.font = UIFont(name:"Times New Roman", size:35)
+            }
             return label!
         }
         
