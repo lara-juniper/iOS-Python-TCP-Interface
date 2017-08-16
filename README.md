@@ -108,6 +108,10 @@ Before the application can be launched on the iPad, the back-end Python script m
 3. Optionally, open VirtualBox to see the virtual machines launching in real-time.
 Once the Python script is running, click on the “iPhoneClient” application on the iOS Device. This should launch the application, and it will be ready for use at this point.
 
+## SSH to devices spun up:
+ssh -p 2222(2200,2201,2202......so on) root@127.0.0.1
+example: ssh -p 2222 root@127.0.0.1
+password:  Juniper
 ## Further Information
 For more detailed installation and usage instructions, see the "User Manual" file in the GitHub repository.
 
