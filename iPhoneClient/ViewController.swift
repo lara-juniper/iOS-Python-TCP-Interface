@@ -17,9 +17,11 @@ class ViewController: UIViewController, dataDelegate, Rotation {
         connection.sendDelegate = self //lets the connection send data to the view controller
         appDelegate.delegate = self //enables view controller to run functions when device rotates
         
+        //Set up loading symbol
         loadingView.transform = CGAffineTransform(scaleX: 2, y: 2)
         loadingView.isHidden = true
         
+        //Disable some buttons at the beginning
         enableEVPNButton.isEnabled = false
         enableVTEPButton.isEnabled = false
         exitButton.isEnabled = false
@@ -36,7 +38,7 @@ class ViewController: UIViewController, dataDelegate, Rotation {
         
         drawLines() //draw lines between spine and leaf images
         
-        showIPs()
+        showIPs() //show IP addresses
         
         //order the views one on top of each other to avoid buttons being unclickable
         view.insertSubview(enableEBGPButton, aboveSubview: spineImages[spineImages.count - 1])
@@ -45,12 +47,14 @@ class ViewController: UIViewController, dataDelegate, Rotation {
         view.insertSubview(enableEVPNButton, aboveSubview: exitButton)
         view.insertSubview(enableVTEPButton, aboveSubview: enableEVPNButton)
         
+        //make vector of all buttons
         allButtons.append(enableEVPNButton)
         allButtons.append(enableVTEPButton)
         allButtons.append(enableEBGPButton)
         allButtons.append(backButton)
         allButtons.append(exitButton)
         
+        //adjust font size for device type
         if UIScreen.main.bounds.size.width < 700 {
             for button in allButtons {
                 button.titleLabel!.font =  UIFont(name: "Times New Roman", size: 20)
@@ -135,16 +139,16 @@ class ViewController: UIViewController, dataDelegate, Rotation {
                 exitButton.isEnabled = true
                 stopLoading()
                 enableEVPNButton.isEnabled = true
-            } else if split[0] == "eVPNdone" {
+            } else if split[0] == "eVPNdone" { //when eVPN process finishes
                 stopLoading()
                 enableVTEPButton.isEnabled = true
                 exitButton.isEnabled = true
                 
-            } else if split[0] == "VTEPdone" {
+            } else if split[0] == "VTEPdone" { //when VTEP process finishes
                 drawEVPNLines()
                 exitButton.isEnabled = true
                 stopLoading()
-            } else if split[0] == "deleted" {
+            } else if split[0] == "deleted" { //when all machines are deleted
                 backButton.isEnabled = true
                 enableEBGPButton.isEnabled = false
                 enableEVPNButton.isEnabled = false
@@ -168,6 +172,7 @@ class ViewController: UIViewController, dataDelegate, Rotation {
         }
     }
     
+    //make spine images show up on screen
     func generateSpineImages(spines: Int){
         for i in 1...numberOfSpines {
             
@@ -193,6 +198,7 @@ class ViewController: UIViewController, dataDelegate, Rotation {
         }
     }
     
+    //make leaf images show up on screen
     func generateLeafImages(leaves: Int) {
         
         for i in 1...numberOfLeaves {
@@ -220,6 +226,7 @@ class ViewController: UIViewController, dataDelegate, Rotation {
         
     }
     
+    //resize spine images when the screen rotates
     func resizeSpineWhenRotate(){
         var counter: Int = 0
         for spine in spineImages {
@@ -238,6 +245,7 @@ class ViewController: UIViewController, dataDelegate, Rotation {
         }
     }
     
+    //resize leaf images when the screen rotates
     func resizeLeafWhenRotate(){
         var counter: Int = 0
         for leaf in leafImages {
@@ -255,6 +263,7 @@ class ViewController: UIViewController, dataDelegate, Rotation {
         }
     }
     
+    //redrad the lines connecting spines and leaves when screen rotates
     func redrawLinesWhenRotate() {
         for line in lines {
             line.removeFromSuperview()
@@ -349,6 +358,7 @@ class ViewController: UIViewController, dataDelegate, Rotation {
         startLoading()
     }
     
+    //make loading icon start rotating
     func startLoading() {
         loadingView.isHidden = false
         loadingView.startAnimating()
@@ -357,6 +367,7 @@ class ViewController: UIViewController, dataDelegate, Rotation {
         }
     }
     
+    //make loading icon stop rotating
     func stopLoading() {
         loadingView.isHidden = true
         loadingView.stopAnimating()

@@ -23,18 +23,21 @@ class ConfigurationViewController: UIViewController, UIPickerViewDataSource, UIP
 
     
     //MARK: Variables
-    let spineNumbers: [Int] = Array(1...5) //number of spines/leaves available
+    let spineNumbers: [Int] = Array(1...5) //number of spines/leaves available in picker
 
     
     //MARK: Main app functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //initialize picker
         self.spinePicker.delegate = self
         self.spinePicker.dataSource = self
         
+        //put button above Juniper image
         view.insertSubview(configureButton, aboveSubview: spinePicker)
         
+        //Adjust text size for device type
         if UIScreen.main.bounds.size.width < 700 {
             spineAndLeafLabel.font = spineAndLeafLabel.font.withSize(16)
             configureButton.titleLabel!.font =  UIFont(name: "Times New Roman", size: 20)

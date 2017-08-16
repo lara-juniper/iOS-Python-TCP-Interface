@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 
 class LineView : UIView {
+    
+    //start and endpoints of the line
     var startPoint: CGPoint = CGPoint(x: 0.0, y: 0.0)
     var endPoint: CGPoint = CGPoint(x: 0.0, y: 0.0)
     
