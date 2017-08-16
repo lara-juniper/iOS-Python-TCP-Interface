@@ -75,7 +75,7 @@ The user has two platforms on which they can run the iOS application: on a physi
 1. Open the iPhoneClient.xcodeproj file on Xcode.
 2. Open the Connection.swift file on the left menu of files.
 3. Locate the IP Address of your computer on the network. On a Mac, this can be done by going to System Preferences and selecting “Network.” 
-4. Change the serverAddress string to the IP address of your computer on the network.
+4. Change the serverAddress string to the IP address of your computer on the network. Also open the server.py file and change the HOST variable to this IP address.
 5. Open the iPhoneClient.xcodeproj file on Xcode.
 6. Select the device listed in the top left corner next to the iPhoneClient icon. By default, it is set to a simulator. If you wish to use a simulator, select “iPad Air 2” and skip to Step 9.
 7. Connect a physical iOS device to your computer.
